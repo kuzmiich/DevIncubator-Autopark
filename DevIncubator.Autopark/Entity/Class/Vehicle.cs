@@ -62,13 +62,8 @@ namespace DevIncubator.Autopark.Entity.Class
         }
 
         public override bool Equals(object obj)
-        {
-            if (obj is Vehicle vehicle)
-            {
-                return VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName;
-            }
-
-            return false;
+        { 
+            return obj is Vehicle vehicle && (VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName);
         }
 
         public override string ToString()
