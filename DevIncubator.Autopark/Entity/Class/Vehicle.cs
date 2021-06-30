@@ -36,11 +36,6 @@ namespace DevIncubator.Autopark.Entity.Class
 
         public int CompareTo(Vehicle vehicle)
         {
-            if (vehicle.Equals(null))
-            {
-                throw new ArgumentNullException("Error, argument can`t be null");
-            }
-
             var vehicleCalcTaxPerMonth = vehicle.GetCalcTaxPerMonth;
 
             return vehicleCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
