@@ -13,7 +13,14 @@ namespace DevIncubator.Autopark.Entity.Class
         {
         }
 
-        public Vehicle(VehicleType vehicleType, string modelName, string registrationNumber, int weight, int releaseYear, int mileage, ColorType colorType, double tankCapacity = 0.0)
+        public Vehicle(VehicleType vehicleType,
+            string modelName,
+            string registrationNumber,
+            int weight,
+            int releaseYear,
+            int mileage,
+            ColorType colorType,
+            double tankCapacity = 0.0)
         {
             VehicleType = vehicleType;
             ModelName = modelName;
@@ -41,9 +48,12 @@ namespace DevIncubator.Autopark.Entity.Class
 
         public int CompareTo(Vehicle vehicle)
         {
-            var vehicleCalcTaxPerMonth = vehicle.GetCalcTaxPerMonth;
+            if (vehicle is null)
+            {
+                throw new ArgumentNullException(nameof(vehicle),"Error, argument can`t be null");
+            }
 
-            return vehicleCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
+            return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
 
         public override string ToString()
