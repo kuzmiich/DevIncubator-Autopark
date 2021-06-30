@@ -23,6 +23,9 @@ namespace DevIncubator.Autopark.Entity.Class
             ColorType = colorType;
             TankCapacity = tankCapacity;
         }
+
+        #region Vehicle Property
+
         public VehicleType VehicleType { get; set; }
         public string ModelName { get; }
         public string RegistrationNumber { get; }
@@ -31,6 +34,8 @@ namespace DevIncubator.Autopark.Entity.Class
         public int Mileage { get; set; }
         public ColorType ColorType { get; set; }
         public double TankCapacity { get; private set; }
+
+        #endregion
 
         public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleType.TaxCoefficient * 30m) + 5;
 
