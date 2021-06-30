@@ -87,12 +87,21 @@ namespace DevIncubator.Autopark
             Console.WriteLine(string.Empty.PadLeft(220, '-'));
             //
             Console.WriteLine("Found equal vehicles:");
-            for (int counter = 0; counter < vehicles.Length - 1; counter++)
+            var count = 0;
+            for (int i = 0; i < vehicles.Length - 1; i++)
             {
-                if (vehicles[counter].Equals(vehicles[counter + 1]))
+                for (int j = 0; j < vehicles.Length - 1; j++)
                 {
-                    Console.WriteLine($"{vehicles[counter]}");
-                    Console.WriteLine($"{vehicles[counter + 1]}");
+                    if (vehicles[i].Equals(vehicles[j]))
+                    {
+                        count++;
+                    }
+                    if (vehicles[i].Equals(vehicles[j]) && count == 2)
+                    {
+                        Console.WriteLine($"{vehicles[i]}");
+                        Console.WriteLine($"{vehicles[j]}");
+                        count = 0;
+                    }
                 }
             }
 
