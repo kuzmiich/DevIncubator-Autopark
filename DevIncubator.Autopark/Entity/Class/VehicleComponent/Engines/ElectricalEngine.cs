@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Base;
+using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 
-namespace DevIncubator.Autopark.Entity.Class.VehicleComponent
+namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines
 {
-    public class ElectricalEngine : Engine
+    public class ElectricalEngine : AbstractEngine
     {
         public ElectricalEngine(double electricityConsumption) : base("Electrical", 0.1m)
         {
@@ -15,11 +15,11 @@ namespace DevIncubator.Autopark.Entity.Class.VehicleComponent
         }
         public double ElectricityConsumption { get; }
 
-        public double GetMaxKilometers(double batterySize)
+        public override double GetMaxKilometers(double batterySize)
         {
-            if (batterySize <= 0)
+            if (batterySize < 0.0)
             {
-                throw new ArgumentException("Battery size can`t be <=0");
+                throw new ArgumentException("Battery size can`t be (< 0)");
             }
 
             return batterySize / ElectricityConsumption;
