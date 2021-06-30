@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevIncubator.Autopark.Entity.Class.VehicleComponent.Base;
 using DevIncubator.Autopark.Entity.Enum;
 
 namespace DevIncubator.Autopark.Entity.Class
@@ -12,10 +13,10 @@ namespace DevIncubator.Autopark.Entity.Class
         public Vehicle()
         {
         }
-
-        public Vehicle(VehicleType vehicleType, string modelName, string registrationNumber, int weight, int releaseYear, int mileage, ColorType colorType, double tankCapacity = 0.0)
+        public Vehicle(VehicleType vehicleType, Engine vehicleEngine, string modelName, string registrationNumber, int weight, int releaseYear, int mileage, ColorType colorType, double tankCapacity = 0d)
         {
             VehicleType = vehicleType;
+            VehicleEngine = vehicleEngine;
             ModelName = modelName;
             RegistrationNumber = registrationNumber;
             ReleaseYear = releaseYear;
@@ -24,6 +25,7 @@ namespace DevIncubator.Autopark.Entity.Class
             TankCapacity = tankCapacity;
         }
         public VehicleType VehicleType { get; set; }
+        public Engine VehicleEngine { get; set; }
         public string ModelName { get; }
         public string RegistrationNumber { get; }
         public int Weight { get; set; }
@@ -32,13 +34,14 @@ namespace DevIncubator.Autopark.Entity.Class
         public ColorType ColorType { get; set; }
         public double TankCapacity { get; private set; }
 
-        public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleType.TaxCoefficient * 30m) + 5;
+
+        public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleEngine.TaxCoefficient * VehicleType.TaxCoefficient * 30m) + 5;
 
         public int CompareTo(Vehicle vehicle)
         {
             if (vehicle.Equals(null))
             {
-                throw new ArgumentNullException("Argument can`t be null");
+                throw new ArgumentNullException("Vehicle can`t be null");
             }
 
             int compareValue = default;
@@ -58,10 +61,20 @@ namespace DevIncubator.Autopark.Entity.Class
             return compareValue;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is Vehicle vehicle)
+            {
+                return VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName;
+            }
+
+            return false;
+        }
+
         public override string ToString()
         {
-            return $"{VehicleType}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
-                   $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color type - {ColorType}, Tank capacity - {TankCapacity}, " +
+            return $"{VehicleType}, {VehicleEngine}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
+                   $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color type - {ColorType}, Tank capacity - {TankCapacity:0.00}, " +
                    $"Sum per month - {GetCalcTaxPerMonth:0.00}";
         }
     }

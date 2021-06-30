@@ -7,7 +7,7 @@ using DevIncubator.Autopark.Entity.Class;
 
 namespace DevIncubator.Autopark.Extension
 {
-    public static class AutoparkHelper
+    internal static class AutoparkHelper
     {
         public static void PrettyOutput(this Vehicle[] vehicles)
         {

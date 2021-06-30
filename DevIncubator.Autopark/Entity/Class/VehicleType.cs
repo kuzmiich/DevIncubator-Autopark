@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using DevIncubator.Autopark.Entity.Enum;
-using DevIncubator.Autopark.Entity.Interface;
-
-namespace DevIncubator.Autopark.Entity.Class
+﻿namespace DevIncubator.Autopark.Entity.Class
 {
     public class VehicleType
     {
@@ -27,12 +23,12 @@ namespace DevIncubator.Autopark.Entity.Class
         public virtual string Display()
         {
             return $"Type Name - {TypeName}\n" +
-                   $"Tax Coefficient - {TaxCoefficient}\n";
+                   $"Tax Coefficient - {TaxCoefficient:0.00}\n";
         }
 
         public override string ToString()
         {
-            return $"Type Name - {TypeName}, Tax Coefficient - {TaxCoefficient}";
+            return $"Type Name - {TypeName}, Tax Coefficient - {TaxCoefficient:0.00}";
         }
     }
 }
