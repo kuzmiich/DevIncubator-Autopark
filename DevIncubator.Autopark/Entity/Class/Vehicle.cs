@@ -38,24 +38,12 @@ namespace DevIncubator.Autopark.Entity.Class
         {
             if (vehicle.Equals(null))
             {
-                throw new ArgumentNullException("Argument can`t be null");
+                throw new ArgumentNullException("Error, argument can`t be null");
             }
 
-            int compareValue = default;
-            if (GetCalcTaxPerMonth < vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = - 1;
-            }
-            else if (GetCalcTaxPerMonth == vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 0;
-            }
-            else if (GetCalcTaxPerMonth > vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 1;
-            }
+            var vehicleCalcTaxPerMonth = vehicle.GetCalcTaxPerMonth;
 
-            return compareValue;
+            return vehicleCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
 
         public override string ToString()

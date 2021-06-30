@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using DevIncubator.Autopark.Entity.Enum;
-using DevIncubator.Autopark.Entity.Interface;
-
-namespace DevIncubator.Autopark.Entity.Class
+﻿namespace DevIncubator.Autopark.Entity.Class
 {
     public class VehicleType
     {
