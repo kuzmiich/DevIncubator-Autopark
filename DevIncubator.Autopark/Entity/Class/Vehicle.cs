@@ -39,26 +39,9 @@ namespace DevIncubator.Autopark.Entity.Class
 
         public int CompareTo(Vehicle vehicle)
         {
-            if (vehicle.Equals(null))
-            {
-                throw new ArgumentNullException("Vehicle can`t be null");
-            }
+            var vehicleCalcTaxPerMonth = vehicle.GetCalcTaxPerMonth;
 
-            int compareValue = default;
-            if (GetCalcTaxPerMonth < vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = - 1;
-            }
-            else if (GetCalcTaxPerMonth == vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 0;
-            }
-            else if (GetCalcTaxPerMonth > vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 1;
-            }
-
-            return compareValue;
+            return vehicleCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
 
         public override bool Equals(object obj)
