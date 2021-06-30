@@ -56,11 +56,8 @@ namespace DevIncubator.Autopark.Entity.Class
             return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
 
-        public override string ToString()
-        {
-            return $"{VehicleType}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
+        public override string ToString() => $"{VehicleType}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
                    $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color type - {ColorType}, Tank capacity - {TankCapacity}, " +
                    $"Sum per month - {GetCalcTaxPerMonth:0.00}";
-        }
     }
 }
