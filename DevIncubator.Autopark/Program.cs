@@ -1,6 +1,8 @@
 ﻿using DevIncubator.Autopark.Entity.Class;
 using System;
 using System.Collections.Generic;
+using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark
 {
@@ -8,7 +10,7 @@ namespace DevIncubator.Autopark
     {
         static void Main(string[] args)
         {
-            var vehicles = new List<VehicleType>()
+            var vehicleTypes = new List<VehicleType>()
             {
                 new ("Bus", 1.2m),
                 new ("Car", 1m),
@@ -16,30 +18,73 @@ namespace DevIncubator.Autopark
                 new ("Tractor", 1.2m)
             };
 
-            vehicles[^1].TaxCoefficient = 1.3m;
+            vehicleTypes[^1].TaxCoefficient = 1.3m;
 
-            var maxTaxCoefficient = vehicles[0].TaxCoefficient;
+            var maxTaxCoefficient = vehicleTypes[0].TaxCoefficient;
             var sumTaxCoefficient = 0m;
-            foreach (var vehicle in vehicles)
+            foreach (var vehicleType in vehicleTypes)
             {
-                vehicle.Display();
-                if (vehicle.TaxCoefficient > maxTaxCoefficient)
+                vehicleType.Display();
+                if (vehicleType.TaxCoefficient > maxTaxCoefficient)
                 {
-                    maxTaxCoefficient = vehicle.TaxCoefficient;
+                    maxTaxCoefficient = vehicleType.TaxCoefficient;
                 }
 
-                sumTaxCoefficient += vehicle.TaxCoefficient;
+                sumTaxCoefficient += vehicleType.TaxCoefficient;
             }
 
-            var averageTaxCoefficient = sumTaxCoefficient / vehicles.Count;
+            var averageTaxCoefficient = sumTaxCoefficient / vehicleTypes.Count;
 
             Console.WriteLine($"Max tax coefficient - {maxTaxCoefficient}");
             Console.WriteLine($"Average tax coefficient - {averageTaxCoefficient}");
 
-            foreach (var vehicleType in vehicles)
+            vehicleTypes.PrettyOutput();
+            
+            Console.WriteLine(string.Empty.PadLeft(220, '-'));
+            
+            var vehicles = new Vehicle[]
             {
-                Console.WriteLine(vehicleType);
+                new (vehicleTypes[0], "Volkswagen Crafter", "5427 AX-7", 2022, 2015, 376000, ColorType.Blue),
+                new (vehicleTypes[0], "Volkswagen Crafter", "6427 AA-7", 2500, 2014, 227010, ColorType.White),
+                new (vehicleTypes[0], "Electric Bus E321", "6785 BA-7", 12080, 2019, 20451, ColorType.Green),
+                new (vehicleTypes[1], "Golf 5", "8682 AX-7", 1200, 2006, 230451, ColorType.Gray),
+                new (vehicleTypes[1], "Tesla Model S 70D", "E001 AA-7", 2200, 2019, 10454, ColorType.White),
+                new (vehicleTypes[2], "Hamm HD 12 VV", null, 3000, 2016, 122, ColorType.Yellow),
+                new (vehicleTypes[3], "MT3 Беларус-1025.4", "1145 AB-7", 1200, 2020, 109, ColorType.Red),
+            };
+
+            vehicles.PrettyOutput();
+
+            Array.Sort(vehicles);
+
+            vehicles.PrettyOutput();
+
+            var max = vehicles[0].Mileage;
+            Vehicle maxVehicle = null;
+            var min = vehicles[0].Mileage;
+            Vehicle minVehicle = null;
+            foreach (var vehicle in vehicles)
+            {
+                if (vehicle.Mileage > max)
+                {
+                    max = vehicle.Mileage;
+                    maxVehicle = vehicle;
+                }
+                if (vehicle.Mileage < min)
+                {
+                    min = vehicle.Mileage;
+                    minVehicle = vehicle;
+                }
             }
+
+            Console.WriteLine("Max mileage vehicle: ");
+            Console.WriteLine(maxVehicle);
+
+            Console.WriteLine("Min mileage vehicle: ");
+            Console.WriteLine(minVehicle); 
+            
+            Console.WriteLine(string.Empty.PadLeft(220, '-'));
+
         }
     }
 }

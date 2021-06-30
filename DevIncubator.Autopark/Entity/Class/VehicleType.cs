@@ -18,7 +18,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #region Class Property
 
-        public virtual string TypeName { get; set; }
+        public string TypeName { get; }
 
         public virtual decimal TaxCoefficient { get; set; }
 
