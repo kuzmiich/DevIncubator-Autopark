@@ -7,7 +7,7 @@ using DevIncubator.Autopark.Entity.Class;
 
 namespace DevIncubator.Autopark.Extension
 {
-    public static class AutoparkHelper
+    public static class OutputExtension
     {
         public static void PrettyOutput<T>(this IEnumerable<T> enumerable)
         {
