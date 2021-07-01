@@ -24,5 +24,11 @@ namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines
 
             return batterySize / ElectricityConsumption;
         }
+        public override string ToString()
+        {
+            return $"{TypeName}," +
+                   $"{TaxCoefficient:0.00}," +
+                   $"{ElectricityConsumption:0.00}";
+        }
     }
 }

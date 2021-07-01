@@ -28,7 +28,7 @@
 
         public override string ToString()
         {
-            return $"Type - {TypeName}, Tax Coefficient - {TaxCoefficient:0.00}";
+            return $"{TypeName},{TaxCoefficient:0.00}";
         }
     }
 }

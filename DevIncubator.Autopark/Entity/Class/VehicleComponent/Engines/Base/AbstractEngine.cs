@@ -17,10 +17,5 @@ namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base
         public decimal TaxCoefficient { get; set; }
 
         public abstract double GetMaxKilometers(double fuelTank);
-
-        public override string ToString()
-        {
-            return $"Type name - {TypeName}, Tax Coefficient - {TaxCoefficient:0.00}";
-        }
     }
 }

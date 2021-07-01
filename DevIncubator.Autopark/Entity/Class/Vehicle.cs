@@ -73,9 +73,8 @@ namespace DevIncubator.Autopark.Entity.Class
 
         public override string ToString()
         {
-            return $"{VehicleType}, {VehicleEngine}, Model - {ModelName}, Registration number - {RegistrationNumber}, Weight - {Weight}, " +
-                   $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color Type - {ColorType}, Tank capacity - {TankCapacity:0.00}, " +
-                   $"Tax per month - {GetCalcTaxPerMonth:0.00}";
+            return $"{VehicleType},{VehicleEngine},{ModelName},{RegistrationNumber},{Weight},{ReleaseYear}," +
+                   $"{Mileage},{ColorType},{TankCapacity:0.00},{GetCalcTaxPerMonth:0.00}";
         }
     }
 }
