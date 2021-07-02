@@ -9,7 +9,7 @@ namespace DevIncubator.Autopark.Extension
 {
     public static class OutputExtension
     {
-        public static void PrettyOutput<T>(this IEnumerable<T> enumerable)
+        public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
             foreach (var element in enumerable)
             {
