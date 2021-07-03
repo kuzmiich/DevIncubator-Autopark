@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark.Entity.Class
 {
@@ -13,10 +13,23 @@ namespace DevIncubator.Autopark.Entity.Class
         public Vehicle()
         {
         }
-        public Vehicle(VehicleType vehicleType, AbstractEngine vehicleEngine, string modelName, string registrationNumber, int weight, int releaseYear, int mileage, ColorType colorType, double tankCapacity = 0d)
+
+        public Vehicle(int id,
+            VehicleType vehicleType,
+            AbstractEngine vehicleEngine,
+            List<Rent> listRent,
+            string modelName,
+            string registrationNumber,
+            int weight,
+            int releaseYear,
+            int mileage,
+            ColorType colorType,
+            double tankCapacity)
         {
+            Id = id;
             VehicleType = vehicleType;
             VehicleEngine = vehicleEngine;
+            ListRent = listRent;
             ModelName = modelName;
             RegistrationNumber = registrationNumber;
             ReleaseYear = releaseYear;
@@ -24,8 +37,13 @@ namespace DevIncubator.Autopark.Entity.Class
             ColorType = colorType;
             TankCapacity = tankCapacity;
         }
+
+        #region Vehicle Property
+
+        public int Id { get; set; }
         public VehicleType VehicleType { get; set; }
         public AbstractEngine VehicleEngine { get; set; }
+        public List<Rent> ListRent { get; set; }
         public string ModelName { get; }
         public string RegistrationNumber { get; }
         public int Weight { get; set; }
@@ -34,47 +52,25 @@ namespace DevIncubator.Autopark.Entity.Class
         public ColorType ColorType { get; set; }
         public double TankCapacity { get; private set; }
 
+        #endregion
 
-        public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleEngine.TaxCoefficient * VehicleType.TaxCoefficient * 30m) + 5;
+        public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleType.TaxCoefficient * 30m) + 5;
+
+        public decimal GetTotalIncome => ListRent.SumElement(rent => rent.RentCost);
+
+        public decimal GetTotalProfit => GetTotalIncome - GetCalcTaxPerMonth;
 
         public int CompareTo(Vehicle vehicle)
         {
-            if (vehicle.Equals(null))
+            if (vehicle is null)
             {
-                throw new ArgumentNullException("Vehicle can`t be null");
+                throw new ArgumentNullException(nameof(vehicle), "Error, argument can`t be null");
             }
 
-            int compareValue = default;
-            if (GetCalcTaxPerMonth < vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = - 1;
-            }
-            else if (GetCalcTaxPerMonth == vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 0;
-            }
-            else if (GetCalcTaxPerMonth > vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 1;
-            }
-
-            return compareValue;
+            return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Vehicle vehicle)
-            {
-                return VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName;
-            }
-
-            return false;
-        }
-
-        public override string ToString()
-        {
-            return $"{VehicleType},{VehicleEngine},{ModelName},{RegistrationNumber},{Weight},{ReleaseYear}," +
-                   $"{Mileage},{ColorType},{TankCapacity:0.00},{GetCalcTaxPerMonth:0.00}";
-        }
+        public override string ToString() =>
+                   $"{Id},{VehicleType},{VehicleEngine},{ModelName},{RegistrationNumber},{Weight}," +
+                   $"{ReleaseYear},{Mileage},{ColorType},{TankCapacity}";
     }
 }

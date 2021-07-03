@@ -12,109 +12,34 @@ namespace DevIncubator.Autopark
     {
         static void Main(string[] args)
         {
-            var vehicleTypes = new List<VehicleType>()
-            {
-                new ("Bus", 1.2m),
-                new ("Car", 1m),
-                new ("Rink", 1.5m),
-                new ("Tractor", 1.2m)
-            };
+			const string directoryPath = "../../../Files/";
+            var collections = new Collections($"{directoryPath}types.csv",
+                    $"{directoryPath}vehicles.csv",
+                    $"{directoryPath}rents.csv");
+            collections.Print();
+            collections.Insert(1,
+                new Vehicle(1,
+                    collections.ListVehicleTypes[1],
+                    new ElectricalEngine(25),
+                    new List<Rent>(),
+                    "Tesla Model S",
+                    null,
+                    2025,
+                    2020,
+                    100,
+                    ColorType.White,
+                    150));
 
-            vehicleTypes[^1].TaxCoefficient = 1.3m;
+            collections.Delete(1);
+            collections.Delete(4);
 
-            var maxTaxCoefficient = vehicleTypes[0].TaxCoefficient;
-            var sumTaxCoefficient = 0m;
-            foreach (var vehicleType in vehicleTypes)
-            {
-                vehicleType.Display();
-                if (vehicleType.TaxCoefficient > maxTaxCoefficient)
-                {
-                    maxTaxCoefficient = vehicleType.TaxCoefficient;
-                }
+            collections.Print();
 
-                sumTaxCoefficient += vehicleType.TaxCoefficient;
-            }
+            var comparator = new VehicleComparer();
 
-            var averageTaxCoefficient = sumTaxCoefficient / vehicleTypes.Count;
+            collections.Sort(comparator);
 
-            Console.WriteLine($"Max tax coefficient - {maxTaxCoefficient}");
-            Console.WriteLine($"Average tax coefficient - {averageTaxCoefficient}");
-
-            vehicleTypes.PrettyOutput();
-            
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            var vehicles = new Vehicle[]
-            {
-                new (vehicleTypes[0], new GasolineEngine(2, 8.1),"Volkswagen Crafter", "5427 AX-7", 2022, 2015, 376000, ColorType.Blue, 75),
-                new (vehicleTypes[0], new GasolineEngine(2.18, 8.5),"Volkswagen Crafter", "6427 AA-7", 2500, 2014, 227010, ColorType.White, 75),
-                new (vehicleTypes[0], new ElectricalEngine(50),"Electric Bus E321", "6785 BA-7", 12080, 2019, 20451, ColorType.Green, 150),
-                new (vehicleTypes[1], new DieselEngine(1.6, 7.2),"Golf 5", "8682 AX-7", 1200, 2006, 230451, ColorType.Gray, 55),
-                new (vehicleTypes[1], new ElectricalEngine(25),"Tesla Model S 70D", "E001 AA-7", 2200, 2019, 10454, ColorType.White, 70),
-                new (vehicleTypes[2], new DieselEngine(3.2, 25),"Hamm HD 12 VV", null, 3000, 2016, 122, ColorType.Yellow, 20),
-                new (vehicleTypes[3], new DieselEngine(4.75, 20.1),"MT3 Беларус-1025.4", "1145 AB-7", 1200, 2020, 109, ColorType.Red, 135),
-            };
-
-            vehicles.PrettyOutput();
-
-            Array.Sort(vehicles);
-
-            vehicles.PrettyOutput();
-
-            var max = vehicles[0].Mileage;
-            Vehicle maxMileageVehicle = null;
-            var min = vehicles[0].Mileage;
-            Vehicle minMileageVehicle = null;
-            foreach (var vehicle in vehicles)
-            {
-                if (vehicle.Mileage > max)
-                {
-                    max = vehicle.Mileage;
-                    maxMileageVehicle = vehicle;
-                }
-                if (vehicle.Mileage < min)
-                {
-                    min = vehicle.Mileage;
-                    minMileageVehicle = vehicle;
-                }
-            }
-
-            Console.WriteLine("Max mileage vehicle: ");
-            Console.WriteLine(maxMileageVehicle);
-
-            Console.WriteLine("Min mileage vehicle: ");
-            Console.WriteLine(minMileageVehicle); 
-            
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            Console.WriteLine("Found equal vehicles:");
-            for (int i = 0; i < vehicles.Length - 1; i++)
-            {
-                var j = i + 1;
-                if (vehicles[i].Equals(vehicles[j]))
-                {
-                    Console.WriteLine($"{vehicles[i]}");
-                    Console.WriteLine($"{vehicles[j]}\n");
-                }
-            }
-
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            var maxKilometers = 0.0;
-            Vehicle maxKilometersVehicle = null;
-            foreach (var vehicle in vehicles)
-            {
-                var fuelTank = vehicle.TankCapacity;
-                var vehicleMaxKilometers = vehicle.VehicleEngine.GetMaxKilometers(fuelTank);
-                if (vehicleMaxKilometers > maxKilometers)
-                {
-                    maxKilometers = vehicleMaxKilometers;
-                    maxKilometersVehicle = vehicle;
-                }
-            }
-
-            Console.WriteLine("Vehicle that will travel the maximum distance on a tank/battery:");
-            Console.WriteLine(maxKilometersVehicle);
-        }
+            collections.Print();
+		}
     }
 }

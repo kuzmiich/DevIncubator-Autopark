@@ -6,13 +6,16 @@
         {
         }
 
-        public VehicleType(string typeName, decimal taxCoefficient)
+        public VehicleType(int id, string typeName, decimal taxCoefficient)
         {
+            Id = id;
             TypeName = typeName;
             TaxCoefficient = taxCoefficient;
         }
 
         #region Class Property
+
+        public int Id { get; set; }
 
         public string TypeName { get; }
 
@@ -20,15 +23,8 @@
 
         #endregion
 
-        public virtual string Display()
-        {
-            return $"Type - {TypeName}\n" +
-                   $"Tax Coefficient - {TaxCoefficient:0.00}\n";
-        }
+        public virtual string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient}\n";
 
-        public override string ToString()
-        {
-            return $"{TypeName},{TaxCoefficient:0.00}";
-        }
+        public override string ToString() => $"{TypeName},{TaxCoefficient}";
     }
 }
