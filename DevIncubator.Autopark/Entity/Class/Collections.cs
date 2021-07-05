@@ -198,10 +198,7 @@ namespace DevIncubator.Autopark.Entity.Class
                 rents.Add(CreateRent(rentFields));
             }
 
-            foreach (var vehicle in Vehicles)
-            {
-                vehicle.ListRent = rents;
-            }
+            Vehicle.ListRent = rents;
         }
 
         #endregion

@@ -42,7 +42,7 @@ namespace DevIncubator.Autopark.Entity.Class
         public int Id { get; set; }
         public VehicleType VehicleType { get; set; }
         public AbstractEngine VehicleEngine { get; set; }
-        public List<Rent> ListRent { get; set; }
+        public static List<Rent> ListRent { get; set; }
         public string ModelName { get; }
         public string RegistrationNumber { get; }
         public int Weight { get; set; }
@@ -55,7 +55,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleType.TaxCoefficient * 30m) + 5;
 
-        public decimal GetTotalIncome => ListRent.SumElement(rent => rent.RentCost);
+        public static decimal GetTotalIncome => ListRent.SumElement(rent => rent.RentCost);
 
         public decimal GetTotalProfit => GetTotalIncome - GetCalcTaxPerMonth;
 
