@@ -40,7 +40,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
             _startIndex = 0;
         }
         
-        public int Count => _length;
+        public int Count => _endIndex - _startIndex;
 
         public void Resize()
         {
