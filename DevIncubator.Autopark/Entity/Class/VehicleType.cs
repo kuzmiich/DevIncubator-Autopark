@@ -19,12 +19,12 @@
 
         public string TypeName { get; }
 
-        public virtual decimal TaxCoefficient { get; set; }
+        public decimal TaxCoefficient { get; init; }
 
         #endregion
 
-        public virtual string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient}\n";
+        public string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient}\n";
 
-        public override string ToString() => $"{TypeName},{TaxCoefficient}";
+        public override string ToString() => $"{Id},{TypeName},{TaxCoefficient}";
     }
 }

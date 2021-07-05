@@ -21,7 +21,7 @@ namespace DevIncubator.Autopark.InputService
             {
                 foreach (var obj in enumerable)
                 {
-                    var line = obj.ToString();
+                    var line = obj?.ToString();
                     streamWriter.WriteLine(line);
                 }
             }

@@ -17,7 +17,6 @@ namespace DevIncubator.Autopark.Entity.Class
         public Vehicle(int id,
             VehicleType vehicleType,
             AbstractEngine vehicleEngine,
-            List<Rent> listRent,
             string modelName,
             string registrationNumber,
             int weight,
@@ -29,9 +28,9 @@ namespace DevIncubator.Autopark.Entity.Class
             Id = id;
             VehicleType = vehicleType;
             VehicleEngine = vehicleEngine;
-            ListRent = listRent;
             ModelName = modelName;
             RegistrationNumber = registrationNumber;
+            Weight = weight;
             ReleaseYear = releaseYear;
             Mileage = mileage;
             ColorType = colorType;
@@ -70,7 +69,7 @@ namespace DevIncubator.Autopark.Entity.Class
             return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
         public override string ToString() =>
-                   $"{Id},{VehicleType},{VehicleEngine},{ModelName},{RegistrationNumber},{Weight}," +
-                   $"{ReleaseYear},{Mileage},{ColorType},{TankCapacity}";
+                   $"{Id},{VehicleType.Id},{ModelName},{RegistrationNumber},{Weight}," +
+                   $"{ReleaseYear},{Mileage},{ColorType},{VehicleEngine},{TankCapacity}";
     }
 }

@@ -9,10 +9,10 @@ namespace DevIncubator.Autopark.OutputService
 {
     public interface IOutputService
     {
-        List<Vehicle> ReadVehicles();
+        List<List<string>> ReadVehicles();
 
         List<VehicleType> ReadVehicleTypes();
 
-        List<Rent> ReadRents();
+        List<List<string>> ReadRents();
     }
 }

@@ -9,6 +9,11 @@ namespace DevIncubator.Autopark.Extension
 {
     internal static class AutoparkHelper
     {
+        public static T ToEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
+        }
+
         public static decimal SumElement<T>(this IEnumerable<T> source, Func<T, decimal> selector)
         {
             if (source == null)

@@ -12,12 +12,19 @@ namespace DevIncubator.Autopark.Entity.Class
         {
             
         }
+
         public Rent(DateTime date, decimal rentCost)
         {
             Date = date;
             RentCost = rentCost;
         }
+        
         public DateTime Date { get; set; }
         public decimal RentCost { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Date},{RentCost}";
+        }
     }
 }
