@@ -166,7 +166,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #region Rents
 
-        public Rent CreateRent(IReadOnlyList<string> rentFields)
+        public void CreateRents(IReadOnlyList<string> rentFields)
         {
             if (rentFields is null)
             {
@@ -180,27 +180,21 @@ namespace DevIncubator.Autopark.Entity.Class
             {
                 if (vehicle.Id == vehicleId)
                 {
-                    return new Rent(rentDate, rentCost);
+                    vehicle.ListRent = new List<Rent>
+                    {
+                        new Rent(rentDate, rentCost)
+                    };
                 }
             }
-
-            return new Rent();
         }
 
         private void LoadRents(string rentsPath)
         {
-            new CsvFileReader(rentsPath).ReadRents();
-
-            var rents = new List<Rent>();
             var listRentsFields = new CsvFileReader(rentsPath).ReadRents();
-            foreach (var rentFields in listRentsFields)
-            {
-                rents.Add(CreateRent(rentFields));
-            }
 
-            foreach (var vehicle in Vehicles)
+            foreach (var listRentFields in listRentsFields)
             {
-                vehicle.ListRent = rents;
+                CreateRents(listRentFields);
             }
         }
 
