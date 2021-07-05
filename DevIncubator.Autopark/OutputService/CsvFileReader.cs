@@ -60,10 +60,7 @@ namespace DevIncubator.Autopark.OutputService
             }
         }
         
-        private static VehicleType CreateType(int id, string typeName, decimal taxCoefficient) =>
-            new(id, typeName, taxCoefficient);
-
-        public List<VehicleType> ReadVehicleTypes()
+        public List<List<string>> ReadVehicleTypes()
         {
             if (File.Exists(Path) == false)
             {
@@ -72,14 +69,13 @@ namespace DevIncubator.Autopark.OutputService
 
             using (var reader = new StreamReader(Path))
             {
-                var vehicleTypes = new List<VehicleType>();
+                var vehicleTypes = new List<List<string>>();
 
                 while (!reader.EndOfStream)
                 {
                     var vehicleTypeFields = ParseCsv(reader.ReadLine());
 
-                    var vehicleType = CreateType(Convert.ToInt32(vehicleTypeFields[0]), vehicleTypeFields[1], Convert.ToDecimal(vehicleTypeFields[2]));
-                    vehicleTypes.Add(vehicleType);
+                    vehicleTypes.Add(vehicleTypeFields);
                 }
 
                 return vehicleTypes;

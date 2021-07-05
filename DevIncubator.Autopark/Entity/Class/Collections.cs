@@ -71,9 +71,10 @@ namespace DevIncubator.Autopark.Entity.Class
 			Vehicles.Sort(comparator);
 		}
 
-        #region Load Vehicles, VehicleTypes, Rents
 
-        public VehicleType CreateVehicleType(string sourceType)
+        #region Load Vehicles
+
+        public VehicleType SelectVehicleType(string sourceType)
         {
             if (sourceType is null)
             {
@@ -90,28 +91,6 @@ namespace DevIncubator.Autopark.Entity.Class
             return new VehicleType();
         }
 
-        public Rent CreateRent(IReadOnlyList<string> rentFields)
-        {
-            if (rentFields is null)
-            {
-                throw new ArgumentNullException(nameof(rentFields));
-            }
-            var vehicleId = Convert.ToInt32(rentFields[0]);
-            var rentDate = Convert.ToDateTime(rentFields[1]);
-            var rentCost = Convert.ToDecimal(rentFields[2]);
-
-            foreach (var vehicle in Vehicles)
-            {
-                if (vehicle.Id == vehicleId)
-                {
-                    return new Rent(rentDate, rentCost);
-                }
-            }
-
-            return new Rent();
-        }
-
-
         public Vehicle CreateVehicle(IReadOnlyList<string> csvData)
         {
             if (csvData is null)
@@ -119,7 +98,7 @@ namespace DevIncubator.Autopark.Entity.Class
                 throw new ArgumentNullException(nameof(csvData));
             }
             var id = Convert.ToInt32(csvData[0]);
-            var type = CreateVehicleType(csvData[1]);
+            var type = SelectVehicleType(csvData[1]);
             var modelName = csvData[2];
             var registrationNumber = csvData[3];
             var weight = Convert.ToInt32(csvData[4]);
@@ -150,11 +129,6 @@ namespace DevIncubator.Autopark.Entity.Class
                 );
         }
 
-        private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
-        {
-            return new CsvFileReader(vehiclesTypesPath).ReadVehicleTypes();
-        }
-
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
@@ -165,6 +139,52 @@ namespace DevIncubator.Autopark.Entity.Class
             }
 
             return vehicles;
+        }
+
+        #endregion
+
+        #region VehicleTypes
+
+        private static VehicleType CreateVehicleType(int id, string typeName, decimal taxCoefficient) =>
+            new(id, typeName, taxCoefficient);
+
+
+        private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
+        {
+            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadVehicleTypes();
+            var vehicleTypes = new List<VehicleType>();
+            foreach (var vehicleTypeFields in listVehicleTypesFields)
+            {
+                var vehicleType = CreateVehicleType(Convert.ToInt32(vehicleTypeFields[0]), vehicleTypeFields[1], Convert.ToDecimal(vehicleTypeFields[2]));
+                vehicleTypes.Add(vehicleType);
+            }
+
+            return vehicleTypes;
+        }
+
+        #endregion
+
+        #region Rents
+
+        public Rent CreateRent(IReadOnlyList<string> rentFields)
+        {
+            if (rentFields is null)
+            {
+                throw new ArgumentNullException(nameof(rentFields));
+            }
+            var vehicleId = Convert.ToInt32(rentFields[0]);
+            var rentDate = Convert.ToDateTime(rentFields[1]);
+            var rentCost = Convert.ToDecimal(rentFields[2]);
+
+            foreach (var vehicle in Vehicles)
+            {
+                if (vehicle.Id == vehicleId)
+                {
+                    return new Rent(rentDate, rentCost);
+                }
+            }
+
+            return new Rent();
         }
 
         private void LoadRents(string rentsPath)

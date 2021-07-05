@@ -11,7 +11,7 @@ namespace DevIncubator.Autopark.OutputService
     {
         List<List<string>> ReadVehicles();
 
-        List<VehicleType> ReadVehicleTypes();
+        List<List<string>> ReadVehicleTypes();
 
         List<List<string>> ReadRents();
     }
