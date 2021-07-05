@@ -6,7 +6,7 @@ using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 using DevIncubator.Autopark.Entity.Enums;
 
-namespace DevIncubator.Autopark.Entity.Class
+namespace DevIncubator.Autopark.Entity.Class.MyCollections
 {
     internal class Collections
 	{
