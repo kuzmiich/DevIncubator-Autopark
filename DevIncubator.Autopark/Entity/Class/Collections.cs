@@ -193,7 +193,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadLineCsvElements();
+            new CsvFileReader(rentsPath).ReadRents();
 
             foreach (var listRentFields in listRentsFields)
             {

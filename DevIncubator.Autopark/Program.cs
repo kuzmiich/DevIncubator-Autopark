@@ -31,12 +31,12 @@ namespace DevIncubator.Autopark
             }
 
             Console.WriteLine("Washed vehicles:");
-            var count = queue.Count();
+            /*var count = queue.Count();
             for (int i = 0; i < count; i++)
             {
                 var vehicle = queue.Dequeue();
                 Console.WriteLine($"Automobile {vehicle.ModelName} washed");
-            }
+            }*/
         }
     }
 }
