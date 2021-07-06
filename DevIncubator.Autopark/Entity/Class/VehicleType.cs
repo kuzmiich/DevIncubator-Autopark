@@ -19,8 +19,8 @@
         public virtual decimal TaxCoefficient { get; set; }
 
         #endregion
-
-        public virtual string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient}\n";
+        
+        public virtual string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient:0.00}\n";
 
         public override string ToString() => $"Type Name - {TypeName}, Tax Coefficient - {TaxCoefficient}";
     }
