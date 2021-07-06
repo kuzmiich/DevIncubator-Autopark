@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevIncubator.Autopark.Entity.Class.VehicleComponent.Base;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 using DevIncubator.Autopark.Entity.Enum;
 
@@ -24,6 +25,9 @@ namespace DevIncubator.Autopark.Entity.Class
             ColorType = colorType;
             TankCapacity = tankCapacity;
         }
+
+        #region Vehicle Property
+
         public VehicleType VehicleType { get; set; }
         public AbstractEngine VehicleEngine { get; set; }
         public string ModelName { get; }
@@ -36,45 +40,23 @@ namespace DevIncubator.Autopark.Entity.Class
 
 
         public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleEngine.TaxCoefficient * VehicleType.TaxCoefficient * 30m) + 5;
+        
+        #endregion
 
         public int CompareTo(Vehicle vehicle)
         {
-            if (vehicle.Equals(null))
-            {
-                throw new ArgumentNullException("Vehicle can`t be null");
-            }
+            var vehicleCalcTaxPerMonth = vehicle.GetCalcTaxPerMonth;
 
-            int compareValue = default;
-            if (GetCalcTaxPerMonth < vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = - 1;
-            }
-            else if (GetCalcTaxPerMonth == vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 0;
-            }
-            else if (GetCalcTaxPerMonth > vehicle.GetCalcTaxPerMonth)
-            {
-                compareValue = 1;
-            }
-
-            return compareValue;
+            return vehicleCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
 
         public override bool Equals(object obj)
-        {
-            if (obj is Vehicle vehicle)
-            {
-                return VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName;
-            }
-
-            return false;
+        { 
+            return obj is Vehicle vehicle && (VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName);
         }
 
-        public override string ToString()
-        {
-            return $"{VehicleType},{VehicleEngine},{ModelName},{RegistrationNumber},{Weight},{ReleaseYear}," +
-                   $"{Mileage},{ColorType},{TankCapacity:0.00},{GetCalcTaxPerMonth:0.00}";
-        }
+        public override string ToString() => $"{VehicleType}, {VehicleEngine}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
+                   $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color type - {ColorType}, Tank capacity - {TankCapacity:0.00}, " +
+                   $"Sum per month - {GetCalcTaxPerMonth:0.00}";
     }
 }

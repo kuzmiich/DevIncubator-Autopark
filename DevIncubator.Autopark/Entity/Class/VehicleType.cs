@@ -20,15 +20,8 @@
 
         #endregion
 
-        public virtual string Display()
-        {
-            return $"Type - {TypeName}\n" +
-                   $"Tax Coefficient - {TaxCoefficient:0.00}\n";
-        }
+        public virtual string Display() => $"Type Name - {TypeName}\nTax Coefficient - {TaxCoefficient}\n";
 
-        public override string ToString()
-        {
-            return $"{TypeName},{TaxCoefficient:0.00}";
-        }
+        public override string ToString() => $"Type Name - {TypeName}, Tax Coefficient - {TaxCoefficient}";
     }
 }

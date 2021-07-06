@@ -7,13 +7,13 @@ using DevIncubator.Autopark.Entity.Class;
 
 namespace DevIncubator.Autopark.Extension
 {
-    internal static class OutputExtension
+    internal static class AutoparkHelper
     {
-        public static void PrettyOutput<T>(this IEnumerable<T> vehicles)
+        public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
-            foreach (var vehicle in vehicles)
+            foreach (var obj in enumerable)
             {
-                Console.WriteLine(vehicle);
+                Console.WriteLine(obj);
             }
         }
     }
