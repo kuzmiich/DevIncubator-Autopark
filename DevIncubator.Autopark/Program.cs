@@ -13,6 +13,7 @@ namespace DevIncubator.Autopark
                 new AutoparkInfoService(),
                 new WashingService(),
                 new GarageService(),
+                new RepairService()
             };
 
             try

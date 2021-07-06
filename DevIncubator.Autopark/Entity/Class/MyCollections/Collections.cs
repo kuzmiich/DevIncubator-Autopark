@@ -10,7 +10,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 {
     internal class Collections
 	{
-		private const string DirectoryPath = "../../../Files/";
+		public const string DirectoryPath = "../../../Files/";
         
 		public Collections(string vehiclesTypesName, string vehiclesName, string rentsName)
 		{
@@ -132,7 +132,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
-            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadVehicles();
+            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadListCsvStrings();
             foreach (var vehicleFields in listVehiclesFields)
             {
                 vehicles.Add(CreateVehicle(vehicleFields));
@@ -151,7 +151,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
         {
-            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadVehicleTypes();
+            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadListCsvStrings();
             var vehicleTypes = new List<VehicleType>();
             foreach (var vehicleTypeFields in listVehicleTypesFields)
             {
@@ -190,7 +190,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadRents();
+            var listRentsFields = new CsvFileReader(rentsPath).ReadListCsvStrings();
 
             foreach (var listRentFields in listRentsFields)
             {

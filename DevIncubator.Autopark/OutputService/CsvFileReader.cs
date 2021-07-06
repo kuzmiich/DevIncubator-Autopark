@@ -40,7 +40,7 @@ namespace DevIncubator.Autopark.OutputService
             return parseFields;
         }
 
-        public List<List<string>> ReadVehicles()
+        public List<List<string>> ReadListCsvStrings()
         {
             if (File.Exists(Path) == false)
             {
@@ -49,59 +49,14 @@ namespace DevIncubator.Autopark.OutputService
             
             using (var reader = new StreamReader(Path))
             {
-                var vehicles = new List<List<string>>();
+                var listEnumerableFields = new List<List<string>>();
 
                 while (!reader.EndOfStream)
                 {
                     var vehicleFields = ParseCsv(reader.ReadLine());
-                    vehicles.Add(vehicleFields);
+                    listEnumerableFields.Add(vehicleFields);
                 }
-                return vehicles;
-            }
-        }
-        
-        public List<List<string>> ReadVehicleTypes()
-        {
-            if (File.Exists(Path) == false)
-            {
-                throw new FileNotFoundException(nameof(Path), $"Path - {Path}");
-            }
-
-            using (var reader = new StreamReader(Path))
-            {
-                var vehicleTypes = new List<List<string>>();
-
-                while (!reader.EndOfStream)
-                {
-                    var vehicleTypeFields = ParseCsv(reader.ReadLine());
-
-                    vehicleTypes.Add(vehicleTypeFields);
-                }
-
-                return vehicleTypes;
-            }
-        }
-
-
-        public List<List<string>> ReadRents()
-        {
-            if (File.Exists(Path) == false)
-            {
-                throw new FileNotFoundException(nameof(Path), $"Path - {Path}");
-            }
-
-            using (var reader = new StreamReader(Path))
-            {
-                var rents = new List<List<string>>();
-
-                while (!reader.EndOfStream)
-                {
-                    var rentFields = ParseCsv(reader.ReadLine());
-
-                    rents.Add(rentFields);
-                }
-
-                return rents;
+                return listEnumerableFields;
             }
         }
     } 
