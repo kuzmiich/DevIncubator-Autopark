@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Base;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 using DevIncubator.Autopark.Entity.Enum;
 
