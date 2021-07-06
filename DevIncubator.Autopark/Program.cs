@@ -3,6 +3,7 @@ using DevIncubator.Autopark.Service.AutoparkService;
 using System;
 using System.IO;
 using DevIncubator.Autopark.Entity.Class.MyCollections;
+using DevIncubator.Autopark.OutputService;
 
 namespace DevIncubator.Autopark
 {
@@ -16,11 +17,13 @@ namespace DevIncubator.Autopark
                 $"{DirectoryPath}vehicles.csv",
                 $"{DirectoryPath}rents.csv");
 
+            var listCsvElements = new CsvFileReader($"{DirectoryPath}orders.csv").ReadLineCsvElements();
             IService[] services =
             {
                 new AutoparkInfoService(),
                 new WashingService(collections),
                 new GarageService(collections),
+                new RepairService(listCsvElements)
             };
 
             try
