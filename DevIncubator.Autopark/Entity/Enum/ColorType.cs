@@ -7,9 +7,6 @@
         Red, 
         Yellow, 
         Green,
-        Gold,
-        Black,
-        Silver,
-
+        Gray
     }
 }
