@@ -49,11 +49,8 @@ namespace DevIncubator.Autopark.Entity.Class
             return obj is Vehicle vehicle && (VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName);
         }
 
-        public override string ToString()
-        {
-            return $"{VehicleType}, {VehicleEngine}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
+        public override string ToString() => $"{VehicleType}, {VehicleEngine}, Model name - {ModelName}, State number - {RegistrationNumber}, Weight - {Weight}, " +
                    $"Release Year - {ReleaseYear}, Mileage - {Mileage}, Color type - {ColorType}, Tank capacity - {TankCapacity:0.00}, " +
                    $"Sum per month - {GetCalcTaxPerMonth:0.00}";
-        }
     }
 }

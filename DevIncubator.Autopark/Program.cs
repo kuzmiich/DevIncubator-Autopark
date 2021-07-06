@@ -39,7 +39,7 @@ namespace DevIncubator.Autopark
             Console.WriteLine($"Max tax coefficient - {maxTaxCoefficient}");
             Console.WriteLine($"Average tax coefficient - {averageTaxCoefficient}");
 
-            vehicleTypes.PrettyOutput();
+            vehicleTypes.PrintEnumerable();
             
             Console.WriteLine(string.Empty.PadLeft(220, '-'));
             //
@@ -54,11 +54,11 @@ namespace DevIncubator.Autopark
                 new (vehicleTypes[3], new DieselEngine(4.75, 20.1),"MT3 Беларус-1025.4", "1145 AB-7", 1200, 2020, 109, ColorType.Red, 135),
             };
 
-            vehicles.PrettyOutput();
+            vehicles.PrintEnumerable();
 
             Array.Sort(vehicles);
 
-            vehicles.PrettyOutput();
+            vehicles.PrintEnumerable();
 
             var max = vehicles[0].Mileage;
             Vehicle maxVehicle = null;

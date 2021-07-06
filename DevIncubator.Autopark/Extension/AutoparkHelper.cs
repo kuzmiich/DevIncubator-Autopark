@@ -9,18 +9,11 @@ namespace DevIncubator.Autopark.Extension
 {
     internal static class AutoparkHelper
     {
-        public static void PrettyOutput(this Vehicle[] vehicles)
+        public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
-            foreach (var vehicle in vehicles)
+            foreach (var obj in enumerable)
             {
-                Console.WriteLine(vehicle);
-            }
-        }
-        public static void PrettyOutput(this List<VehicleType> vehicleTypes)
-        {
-            foreach (var vehicleType in vehicleTypes)
-            {
-                Console.WriteLine(vehicleType);
+                Console.WriteLine(obj);
             }
         }
     }
