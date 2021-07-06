@@ -34,7 +34,7 @@ namespace DevIncubator.Autopark.Extension
 
             return sum;
         }
-        public static void PrettyOutput<T>(this IEnumerable<T> enumerable)
+        public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
             foreach (var value in enumerable)
             {

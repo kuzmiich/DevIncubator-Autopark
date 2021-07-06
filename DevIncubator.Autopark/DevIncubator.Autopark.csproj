@@ -8,8 +8,4 @@
   <ItemGroup>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Service\AutoparkService\" />
-  </ItemGroup>
-
 </Project>

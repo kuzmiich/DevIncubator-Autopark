@@ -19,7 +19,7 @@
 
         public string TypeName { get; }
 
-        public decimal TaxCoefficient { get; init; }
+        public decimal TaxCoefficient { get; set; }
 
         #endregion
 
