@@ -4,23 +4,23 @@ using System;
 using System.Collections.Generic;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 
 namespace DevIncubator.Autopark.Entity.Class
 {
     internal class Collections
 	{
-		private const string DirectoryPath = "../../../Files/";
-        
-		public Collections(string vehiclesTypesName, string vehiclesName, string rentsName)
+		public Collections(string vehiclesTypesName, string vehiclesPath, string rentsPath)
 		{
-            ListVehicleTypes = LoadVehicleTypes($"{DirectoryPath}{vehiclesTypesName}");
-			Vehicles = LoadVehicles($"{DirectoryPath}{vehiclesName}");
-			LoadRents($"{DirectoryPath}{rentsName}");
+            ListVehicleTypes = LoadVehicleTypes($"{vehiclesTypesName}");
+			Vehicles = LoadVehicles($"{vehiclesPath}");
+			LoadRents($"{rentsPath}");
 		}
 
         public List<Vehicle> Vehicles { get; } = new();
         public List<VehicleType> ListVehicleTypes { get; } = new();
+
+        private decimal SumTotalProfit => Vehicles.SumElement(vehicle => vehicle.GetTotalProfit);
 
         public void Insert(int index, Vehicle vehicle)
 		{
@@ -43,9 +43,7 @@ namespace DevIncubator.Autopark.Entity.Class
 			return index;
 		}
 
-		private decimal SumTotalProfit => Vehicles.SumElement(vehicle => vehicle.GetTotalProfit);
-
-		public void Print()
+        public void Print()
 		{
 			Console.WriteLine($"{"ID",-5}{"Type",-10}{"Model name",-25}{"Number",-15}{"Weight(kg)",-15}" +
 							  $"{"Year",-10}{"Mileage",-10}{"Color",-10}{"Income",-10}{"Tax",-10}{"Profit",-10}");
@@ -74,7 +72,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #region Load Vehicles
 
-        public VehicleType SelectVehicleType(string sourceType)
+        private VehicleType SelectVehicleType(string sourceType)
         {
             if (sourceType is null)
             {
@@ -91,7 +89,7 @@ namespace DevIncubator.Autopark.Entity.Class
             return new VehicleType();
         }
 
-        public Vehicle CreateVehicle(IReadOnlyList<string> csvData)
+        private Vehicle CreateVehicle(IReadOnlyList<string> csvData)
         {
             if (csvData is null)
             {
@@ -124,7 +122,7 @@ namespace DevIncubator.Autopark.Entity.Class
                 weight,
                 releaseYear,
                 mileage,
-                color,
+                color.Value,
                 tankCapacity
                 );
         }
@@ -132,7 +130,7 @@ namespace DevIncubator.Autopark.Entity.Class
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
-            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadVehicles();
+            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadListListCsvElements();
             foreach (var vehicleFields in listVehiclesFields)
             {
                 vehicles.Add(CreateVehicle(vehicleFields));
@@ -151,8 +149,9 @@ namespace DevIncubator.Autopark.Entity.Class
 
         private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
         {
-            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadVehicleTypes();
+            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadListListCsvElements();
             var vehicleTypes = new List<VehicleType>();
+
             foreach (var vehicleTypeFields in listVehicleTypesFields)
             {
                 var vehicleType = CreateVehicleType(Convert.ToInt32(vehicleTypeFields[0]), vehicleTypeFields[1], Convert.ToDecimal(vehicleTypeFields[2]));
@@ -166,7 +165,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #region Rents
 
-        public void CreateRents(IReadOnlyList<string> rentFields)
+        private void CreateRents(IReadOnlyList<string> rentFields)
         {
             if (rentFields is null)
             {
@@ -190,7 +189,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadRents();
+            var listRentsFields = new CsvFileReader(rentsPath).ReadListListCsvElements();
 
             foreach (var listRentFields in listRentsFields)
             {

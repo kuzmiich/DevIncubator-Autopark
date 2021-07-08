@@ -1,17 +1,19 @@
 ﻿using DevIncubator.Autopark.Entity.Class;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark
 {
     class Program
     {
+        private const string DirectoryPath = "../../../Files/";
+
         static void Main(string[] args)
         {
-            var collections = new Collections($"types.csv",
-                $"vehicles.csv",
-                $"rents.csv");
+            var collections = new Collections($"{DirectoryPath}types.csv",
+                $"{DirectoryPath}vehicles.csv",
+                $"{DirectoryPath}rents.csv");
             collections.Print();
             
             collections.Insert(1,

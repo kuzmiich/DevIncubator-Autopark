@@ -1,4 +1,4 @@
-﻿namespace DevIncubator.Autopark.Entity.Enum
+﻿namespace DevIncubator.Autopark.Entity.Enums
 {
     public enum ColorType
     {

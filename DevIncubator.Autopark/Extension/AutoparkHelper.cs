@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevIncubator.Autopark.Entity.Class;
+using DevIncubator.Autopark.Entity.Enums;
 
 namespace DevIncubator.Autopark.Extension
 {
     internal static class AutoparkHelper
     {
-        public static T ToEnum<T>(this string value)
+        public static T? ToEnum<T>(this string value) where T : struct
         {
-            return (T)Enum.Parse(typeof(T), value, true);
+            return Enum.TryParse(typeof(T), value, true, out var result) ? (T?)result : default;
         }
 
+        public static ColorType ToEnum(this string value)
+        {
+            return Enum.TryParse(value, out ColorType result) ? result : default;
+        }
         public static decimal SumElement<T>(this IEnumerable<T> source, Func<T, decimal> selector)
         {
             if (source == null)

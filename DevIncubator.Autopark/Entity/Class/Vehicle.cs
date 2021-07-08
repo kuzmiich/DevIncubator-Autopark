@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark.Entity.Class
