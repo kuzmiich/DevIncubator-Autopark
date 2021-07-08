@@ -1,13 +1,5 @@
-﻿using DevIncubator.Autopark.Entity.Class;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
-using DevIncubator.Autopark.Entity.Enums;
-using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark.OutputService
 {
@@ -21,23 +13,24 @@ namespace DevIncubator.Autopark.OutputService
         
         private static List<string> ParseCsv(string csvData)
         {
-            var splitFields = csvData.Split(",");
-            var parseFields = new List<string>();
-            for(int i = 0; i < splitFields.Length; i++)
+            var splitElements = csvData.Split(",");
+
+            var parseElements = new List<string>();
+            for(int i = 0; i < splitElements.Length; i++)
             {
-                if (splitFields[i].StartsWith('\"'))
+                if (splitElements[i].StartsWith('\"'))
                 {
-                    var field = $"{splitFields[i].TrimStart('\"')},{splitFields[i + 1].TrimEnd('\"')}";
+                    var field = $"{splitElements[i].TrimStart('\"')},{splitElements[i + 1].TrimEnd('\"')}";
                     i++;
-                    parseFields.Add(field);
+                    parseElements.Add(field);
                 }
                 else
                 {
-                    parseFields.Add(splitFields[i]);
+                    parseElements.Add(splitElements[i]);
                 }
             }
 
-            return parseFields;
+            return parseElements;
         }
 
         public List<List<string>> ReadListListCsvElements()
@@ -49,14 +42,14 @@ namespace DevIncubator.Autopark.OutputService
 
             using (var reader = new StreamReader(Path))
             {
-                var listEnumerableFields = new List<List<string>>();
+                var listCsvElements = new List<List<string>>();
 
                 while (!reader.EndOfStream)
                 {
-                    var vehicleFields = ParseCsv(reader.ReadLine());
-                    listEnumerableFields.Add(vehicleFields);
+                    var listObj = ParseCsv(reader.ReadLine());
+                    listCsvElements.Add(listObj);
                 }
-                return listEnumerableFields;
+                return listCsvElements;
             }
         }
     } 
