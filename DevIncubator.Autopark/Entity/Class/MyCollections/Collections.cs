@@ -74,7 +74,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         #region Load Vehicles
 
-        public VehicleType SelectVehicleType(string sourceType)
+        private VehicleType SelectVehicleType(string sourceType)
         {
             if (sourceType is null)
             {
@@ -91,7 +91,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
             return new VehicleType();
         }
 
-        public Vehicle CreateVehicle(IReadOnlyList<string> csvData)
+        private Vehicle CreateVehicle(IReadOnlyList<string> csvData)
         {
             if (csvData is null)
             {
@@ -132,7 +132,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
-            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadListCsvStrings();
+            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadListListCsvElements();
             foreach (var vehicleFields in listVehiclesFields)
             {
                 vehicles.Add(CreateVehicle(vehicleFields));
@@ -151,7 +151,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
         {
-            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadListCsvStrings();
+            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadListListCsvElements();
             var vehicleTypes = new List<VehicleType>();
             foreach (var vehicleTypeFields in listVehicleTypesFields)
             {
@@ -166,7 +166,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         #region Rents
 
-        public void CreateRents(IReadOnlyList<string> rentFields)
+        private void CreateRents(IReadOnlyList<string> rentFields)
         {
             if (rentFields is null)
             {
@@ -190,7 +190,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadListCsvStrings();
+            var listRentsFields = new CsvFileReader(rentsPath).ReadListListCsvElements();
 
             foreach (var listRentFields in listRentsFields)
             {

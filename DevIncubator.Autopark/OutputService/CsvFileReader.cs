@@ -40,9 +40,9 @@ namespace DevIncubator.Autopark.OutputService
             return parseFields;
         }
 
-        public List<List<string>> ReadListCsvStrings()
+        public List<List<string>> ReadListListCsvElements()
         {
-            if (File.Exists(Path) == false)
+            if (!File.Exists(Path))
             {
                 throw new FileNotFoundException(nameof(Path), $"Path - {Path}");
             }

@@ -21,7 +21,7 @@ namespace DevIncubator.Autopark.Service.AutoparkService
         {
             IOutputService outputService = new CsvFileReader($"{Collections.DirectoryPath}orders.csv");
 
-            var listListDetails = outputService.ReadListCsvStrings();
+            var listListDetails = outputService.ReadListListCsvElements();
 
             var listDetails = new List<string>();
             foreach (var details in listListDetails)
