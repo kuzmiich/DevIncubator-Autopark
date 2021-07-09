@@ -18,8 +18,11 @@ namespace DevIncubator.Autopark.InputService
             {
                 foreach (var obj in enumerable)
                 {
-                    var line = obj?.ToString();
-                    streamWriter.WriteLine(line);
+                    if (obj is not null)
+                    {
+                        var line = obj.ToString();
+                        streamWriter.WriteLine(line);
+                    }
                 }
             }
         }
