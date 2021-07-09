@@ -12,13 +12,9 @@ namespace DevIncubator.Autopark.Extension
     {
         public static T? ToEnum<T>(this string value) where T : struct
         {
-            return Enum.TryParse(typeof(T), value, true, out var result) ? (T?)result : default;
+            return Enum.TryParse(value, out T result) ? result : default;
         }
 
-        public static ColorType ToEnum(this string value)
-        {
-            return Enum.TryParse(value, out ColorType result) ? result : default;
-        }
         public static decimal SumElement<T>(this IEnumerable<T> source, Func<T, decimal> selector)
         {
             if (source == null)

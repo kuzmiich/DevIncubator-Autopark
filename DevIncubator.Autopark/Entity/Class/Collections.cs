@@ -102,7 +102,7 @@ namespace DevIncubator.Autopark.Entity.Class
             var weight = Convert.ToInt32(csvData[4]);
             var releaseYear = Convert.ToInt32(csvData[5]);
             var mileage = Convert.ToInt32(csvData[6]);
-            var color = csvData[7].ToEnum<ColorType>();
+            var color = csvData[7].ToEnum<ColorType>().Value;
 
             AbstractEngine engine = csvData[8] switch
             {
@@ -122,7 +122,7 @@ namespace DevIncubator.Autopark.Entity.Class
                 weight,
                 releaseYear,
                 mileage,
-                color.Value,
+                color,
                 tankCapacity
                 );
         }
@@ -154,7 +154,10 @@ namespace DevIncubator.Autopark.Entity.Class
 
             foreach (var vehicleTypeFields in listVehicleTypesFields)
             {
-                var vehicleType = CreateVehicleType(Convert.ToInt32(vehicleTypeFields[0]), vehicleTypeFields[1], Convert.ToDecimal(vehicleTypeFields[2]));
+                var vehicleType = CreateVehicleType(Convert.ToInt32(vehicleTypeFields[0]),
+                    vehicleTypeFields[1],
+                    Convert.ToDecimal(vehicleTypeFields[2]));
+
                 vehicleTypes.Add(vehicleType);
             }
 
@@ -171,6 +174,7 @@ namespace DevIncubator.Autopark.Entity.Class
             {
                 throw new ArgumentNullException(nameof(rentFields));
             }
+
             var vehicleId = Convert.ToInt32(rentFields[0]);
             var rentDate = Convert.ToDateTime(rentFields[1]);
             var rentCost = Convert.ToDecimal(rentFields[2]);
