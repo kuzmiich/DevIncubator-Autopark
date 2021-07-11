@@ -10,9 +10,9 @@ namespace DevIncubator.Autopark.Entity.Class
 {
     internal class Collections
 	{
-		public Collections(string vehiclesTypesName, string vehiclesPath, string rentsPath)
+		public Collections(string vehiclesTypesPath, string vehiclesPath, string rentsPath)
 		{
-            ListVehicleTypes = LoadVehicleTypes($"{vehiclesTypesName}");
+            ListVehicleTypes = LoadVehicleTypes($"{vehiclesTypesPath}");
 			Vehicles = LoadVehicles($"{vehiclesPath}");
 			LoadRents($"{rentsPath}");
 		}

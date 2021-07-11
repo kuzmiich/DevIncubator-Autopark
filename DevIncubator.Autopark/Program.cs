@@ -1,4 +1,5 @@
-﻿using DevIncubator.Autopark.Entity.Class;
+﻿using System.IO;
+using DevIncubator.Autopark.Entity.Class;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
@@ -7,7 +8,7 @@ namespace DevIncubator.Autopark
 {
     class Program
     {
-        private const string DirectoryPath = "../../../Files/";
+        private static readonly string DirectoryPath = @$"{Directory.GetCurrentDirectory()}\Files\";
 
         static void Main(string[] args)
         {
