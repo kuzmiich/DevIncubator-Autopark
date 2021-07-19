@@ -6,7 +6,7 @@ using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
 using DevIncubator.Autopark.Entity.Enums;
 
-namespace DevIncubator.Autopark.Entity.Class
+namespace DevIncubator.Autopark.Entity.Class.MyCollections
 {
     internal class Collections
 	{
@@ -141,7 +141,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #endregion
 
-        #region VehicleTypes
+        #region Load VehicleTypes
 
         private static VehicleType CreateVehicleType(int id, string typeName, decimal taxCoefficient) =>
             new(id, typeName, taxCoefficient);
@@ -166,7 +166,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #endregion
 
-        #region Rents
+        #region Load Rents
 
         private void CreateRents(IReadOnlyList<string> rentFields)
         {
@@ -194,7 +194,7 @@ namespace DevIncubator.Autopark.Entity.Class
         private void LoadRents(string rentsPath)
         {
             var listRentsFields = new CsvFileReader(rentsPath).ReadLineCsvElements();
-
+            
             foreach (var listRentFields in listRentsFields)
             {
                 CreateRents(listRentFields);

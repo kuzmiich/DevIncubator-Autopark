@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using DevIncubator.Autopark.Entity.Class;
+using DevIncubator.Autopark.Entity.Class.MyCollections;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
@@ -16,27 +19,24 @@ namespace DevIncubator.Autopark
                 $"{DirectoryPath}vehicles.csv",
                 $"{DirectoryPath}rents.csv");
             collections.Print();
-            
-            collections.Insert(1,
-                new Vehicle(1,
-                    collections.ListVehicleTypes[1],
-                    new ElectricalEngine(25),
-                    "Tesla Model S",
-                    null,
-                    2025,
-                    2020,
-                    100,
-                    ColorType.White,
-                    150));
 
-            collections.Delete(1);
-            collections.Delete(4);
+            var vehicles = collections.Vehicles;
+            var queue = new MyQueue<Vehicle>();
 
-            collections.Print();
+            Console.WriteLine("Queue:");
+            for (int i = 0; i < vehicles.Count; i++)
+            {
+                queue.Enqueue(vehicles[i]);
+                Console.WriteLine($"Automobile {vehicles[i].ModelName} in queue");
+            }
 
-            collections.Sort(new VehicleComparer());
-
-            collections.Print();
+            Console.WriteLine("Washed vehicles:");
+            var count = queue.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var vehicle = queue.Dequeue();
+                Console.WriteLine($"Automobile {vehicle.ModelName} washed");
+            }
         }
     }
 }
