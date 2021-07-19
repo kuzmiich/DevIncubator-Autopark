@@ -17,7 +17,6 @@ namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines
         public override string ToString()
         {
             return $"{TypeName}," +
-                   $"{TaxCoefficient:0.00}," +
                    $"{EngineCapacity:0.00}," +
                    $"{FuelConsumptionPer100:0.00}";
         }

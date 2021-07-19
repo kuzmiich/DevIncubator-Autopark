@@ -1,120 +1,81 @@
-﻿using DevIncubator.Autopark.Entity.Class;
-using System;
-using System.Collections.Generic;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent;
+﻿using System.IO;
+using DevIncubator.Autopark.Entity.Class;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark
 {
     class Program
     {
+        private static readonly string DirectoryPath = @$"{Directory.GetCurrentDirectory()}\Files\";
+
         static void Main(string[] args)
         {
-            var vehicleTypes = new List<VehicleType>()
-            {
-                new ("Bus", 1.2m),
-                new ("Car", 1m),
-                new ("Rink", 1.5m),
-                new ("Tractor", 1.2m)
-            };
-
-            vehicleTypes[^1].TaxCoefficient = 1.3m;
-
-            var maxTaxCoefficient = vehicleTypes[0].TaxCoefficient;
-            var sumTaxCoefficient = 0m;
-            foreach (var vehicleType in vehicleTypes)
-            {
-                vehicleType.Display();
-                if (vehicleType.TaxCoefficient > maxTaxCoefficient)
-                {
-                    maxTaxCoefficient = vehicleType.TaxCoefficient;
-                }
-
-                sumTaxCoefficient += vehicleType.TaxCoefficient;
-            }
-
-            var averageTaxCoefficient = sumTaxCoefficient / vehicleTypes.Count;
-
-            Console.WriteLine($"Max tax coefficient - {maxTaxCoefficient}");
-            Console.WriteLine($"Average tax coefficient - {averageTaxCoefficient}");
-
-            vehicleTypes.PrintEnumerable();
+            var collections = new Collections($"{DirectoryPath}types.csv",
+                $"{DirectoryPath}vehicles.csv",
+                $"{DirectoryPath}rents.csv");
+            collections.Print();
             
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            var vehicles = new Vehicle[]
-            {
-                new (vehicleTypes[0], new GasolineEngine(2, 8.1),"Volkswagen Crafter", "5427 AX-7", 2022, 2015, 376000, ColorType.Blue, 75),
-                new (vehicleTypes[0], new GasolineEngine(2.18, 8.5),"Volkswagen Crafter", "6427 AA-7", 2500, 2014, 227010, ColorType.White, 75),
-                new (vehicleTypes[0], new ElectricalEngine(50),"Electric Bus E321", "6785 BA-7", 12080, 2019, 20451, ColorType.Green, 150),
-                new (vehicleTypes[1], new DieselEngine(1.6, 7.2),"Golf 5", "8682 AX-7", 1200, 2006, 230451, ColorType.Gray, 55),
-                new (vehicleTypes[1], new ElectricalEngine(25),"Tesla Model S 70D", "E001 AA-7", 2200, 2019, 10454, ColorType.White, 70),
-                new (vehicleTypes[2], new DieselEngine(3.2, 25),"Hamm HD 12 VV", null, 3000, 2016, 122, ColorType.Yellow, 20),
-                new (vehicleTypes[3], new DieselEngine(4.75, 20.1),"MT3 Беларус-1025.4", "1145 AB-7", 1200, 2020, 109, ColorType.Red, 135),
-            };
+            collections.Insert(1,
+                new Vehicle(1,
+                    collections.ListVehicleTypes[1],
+                    new ElectricalEngine(25),
+                    "Tesla Model S",
+                    null,
+                    2025,
+                    2020,
+                    100,
+                    ColorType.White,
+                    150));
 
-            vehicles.PrintEnumerable();
+            collections.Delete(1);
+            collections.Delete(4);
 
-            Array.Sort(vehicles);
+            collections.Print();
 
-            vehicles.PrintEnumerable();
+            collections.Sort(new VehicleComparer());
 
-            var max = vehicles[0].Mileage;
-            Vehicle maxMileageVehicle = null;
-            var min = vehicles[0].Mileage;
-            Vehicle minMileageVehicle = null;
-            foreach (var vehicle in vehicles)
-            {
-                if (vehicle.Mileage > max)
-                {
-                    max = vehicle.Mileage;
-                    maxMileageVehicle = vehicle;
-                }
-                if (vehicle.Mileage < min)
-                {
-                    min = vehicle.Mileage;
-                    minMileageVehicle = vehicle;
-                }
-            }
-
-            Console.WriteLine("Max mileage vehicle: ");
-            Console.WriteLine(maxMileageVehicle);
-
-            Console.WriteLine("Min mileage vehicle: ");
-            Console.WriteLine(minMileageVehicle); 
-            
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            Console.WriteLine("Found equal vehicles:");
-            for (int i = 0; i < vehicles.Length - 1; i++)
-            {
-                var j = i + 1;
-                if (vehicles[i].Equals(vehicles[j]))
-                {
-                    Console.WriteLine($"{vehicles[i]}");
-                    Console.WriteLine($"{vehicles[j]}\n");
-                }
-            }
-
-            Console.WriteLine(string.Empty.PadLeft(220, '-'));
-            //
-            var maxKilometers = 0.0;
-            Vehicle maxKilometersVehicle = null;
-            foreach (var vehicle in vehicles)
-            {
-                var fuelTank = vehicle.TankCapacity;
-                var vehicleMaxKilometers = vehicle.VehicleEngine.GetMaxKilometers(fuelTank);
-                if (vehicleMaxKilometers > maxKilometers)
-                {
-                    maxKilometers = vehicleMaxKilometers;
-                    maxKilometersVehicle = vehicle;
-                }
-            }
-
-            Console.WriteLine("Vehicle that will travel the maximum distance on a tank/battery:");
-            Console.WriteLine(maxKilometersVehicle);
+            collections.Print();
         }
     }
 }
+
+/* Data for initialize files rents, types, vehicles
+    VehicleType[] vehicleTypes =
+    { 
+        new(1, "Bus", 1.2m), 
+        new(2, "Car", 1m),
+        new(3, "Rink", 1.5m),
+        new(4, "Tractor", 1.2m)
+
+    };
+
+    Vehicle[] vehicles =
+    { 
+        new(1, vehicleTypes[0], new GasolineEngine(2d,8.1d), "Volkswagen Crafter","5427 AX-7",2022,2015,376000,ColorType.Blue,75),
+        new(2, vehicleTypes[0], new GasolineEngine(2.18d,8.5d),"Volkswagen Crafter","6427 AX-7",2500,2014,227010,ColorType.White,75),
+        new(3, vehicleTypes[0], new ElectricalEngine(50), "Electric Bus E321","6785 BA-7",12080,2019,20451,ColorType.Green,150),
+        new(4, vehicleTypes[1], new DieselEngine(1.6d,7.2d), "Golf 5","8682 AX-7",1200,2006,230451,ColorType.Gray,55),
+        new(5, vehicleTypes[1], new ElectricalEngine(25), "Tesla Model","E001 AA-7",2200,2019,10454,ColorType.White,70),
+        new(6, vehicleTypes[2], new DieselEngine(3.2d,25d), "Hamm HD 12VV",null,3000,2016,122,ColorType.Yellow,20),
+        new(7, vehicleTypes[3], new DieselEngine(4.75d,20.1d), "МТЗ Беларус - 1025.4","1145 AB-7",1200,2020,109,ColorType.Red,135)
+    };
+
+    Rent[] rents = 
+    {
+        new (2, new DateTime(2020, 10, 01), 68),
+        new (1, new DateTime(2020, 10, 01), 123.25m),
+        new (5, new DateTime(2020, 10, 03), 87),
+        new (7, new DateTime(2020, 10, 05), 42),
+        new (6, new DateTime(2020, 10, 07), 150),
+        new (4, new DateTime(2020, 10, 10), 47),
+        new (6, new DateTime(2020, 10, 15), 80),
+        new (5, new DateTime(2020, 10, 18), 150),
+        new (4, new DateTime(2020, 10, 19), 36),
+        new (2, new DateTime(2020, 10, 20), 60.50m),
+        new (3, new DateTime(2020, 10, 22), 220.50m)
+    };
+    IInputService inputService = new CsvFileWriter("../../../Files/vehicles.csv");
+    inputService.WriteEnumerable(vehicles);
+ */
