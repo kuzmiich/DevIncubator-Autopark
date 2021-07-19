@@ -4,42 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevIncubator.Autopark.Entity.Class;
-using DevIncubator.Autopark.Entity.Enums;
 
 namespace DevIncubator.Autopark.Extension
 {
     internal static class AutoparkHelper
     {
-        public static T? ToEnum<T>(this string value) where T : struct
+        public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
-            return Enum.TryParse(value, out T result) ? result : default;
-        }
-
-        public static decimal SumElement<T>(this IEnumerable<T> source, Func<T, decimal> selector)
-        {
-            if (source == null)
+            foreach (var obj in enumerable)
             {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (selector == null)
-            {
-                throw new ArgumentNullException(nameof(selector));
-            }
-
-            var sum = 0m;
-            foreach (var item in source)
-            {
-                sum += selector(item);
-            }
-
-            return sum;
-        }
-        public static void PrettyOutput<T>(this IEnumerable<T> enumerable)
-        {
-            foreach (var value in enumerable)
-            {
-                Console.WriteLine(value);
+                Console.WriteLine(obj);
             }
         }
     }

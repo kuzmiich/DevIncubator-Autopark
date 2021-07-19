@@ -68,6 +68,12 @@ namespace DevIncubator.Autopark.Entity.Class
 
             return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Vehicle vehicle && (VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName);
+        }
+
         public override string ToString() =>
                    $"{Id},{VehicleType.Id},{ModelName},{RegistrationNumber},{Weight}," +
                    $"{ReleaseYear},{Mileage},{ColorType},{VehicleEngine},{TankCapacity}";
