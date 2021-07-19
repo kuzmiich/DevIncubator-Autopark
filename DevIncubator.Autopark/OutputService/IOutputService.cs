@@ -9,6 +9,6 @@ namespace DevIncubator.Autopark.OutputService
 {
     public interface IOutputService
     {
-        List<List<string>> ReadListListCsvElements();
+        List<List<string>> ReadLineCsvElements();
     }
 }

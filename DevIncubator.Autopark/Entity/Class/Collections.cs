@@ -130,7 +130,7 @@ namespace DevIncubator.Autopark.Entity.Class
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
-            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadListListCsvElements();
+            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadLineCsvElements();
             foreach (var vehicleFields in listVehiclesFields)
             {
                 vehicles.Add(CreateVehicle(vehicleFields));
@@ -149,7 +149,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
         {
-            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadListListCsvElements();
+            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadLineCsvElements();
             var vehicleTypes = new List<VehicleType>();
 
             foreach (var vehicleTypeFields in listVehicleTypesFields)
@@ -193,7 +193,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadListListCsvElements();
+            var listRentsFields = new CsvFileReader(rentsPath).ReadLineCsvElements();
 
             foreach (var listRentFields in listRentsFields)
             {

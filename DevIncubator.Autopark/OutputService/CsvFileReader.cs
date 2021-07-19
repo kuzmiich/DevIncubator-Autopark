@@ -33,7 +33,7 @@ namespace DevIncubator.Autopark.OutputService
             return parseElements;
         }
 
-        public List<List<string>> ReadListListCsvElements()
+        public List<List<string>> ReadLineCsvElements()
         {
             if (!File.Exists(Path))
             {
