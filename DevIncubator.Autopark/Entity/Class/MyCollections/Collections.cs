@@ -141,7 +141,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         #endregion
 
-        #region VehicleTypes
+        #region Load VehicleTypes
 
         private static VehicleType CreateVehicleType(int id, string typeName, decimal taxCoefficient) =>
             new(id, typeName, taxCoefficient);
@@ -166,7 +166,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         #endregion
 
-        #region Rents
+        #region Load Rents
 
         private void CreateRents(IReadOnlyList<string> rentFields)
         {
@@ -193,16 +193,9 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         private void LoadRents(string rentsPath)
         {
-            new CsvFileReader(rentsPath).ReadRents();
-
-            var rents = new List<Rent>();
-            var listRentsFields = new CsvFileReader(rentsPath).ReadRents();
-            foreach (var rentFields in listRentsFields)
-            {
-                rents.Add(CreateRent(rentFields));
-            }
-
-            foreach (var vehicle in Vehicles)
+            var listRentsFields = new CsvFileReader(rentsPath).ReadLineCsvElements();
+            
+            foreach (var listRentFields in listRentsFields)
             {
                 CreateRents(listRentFields);
             }
