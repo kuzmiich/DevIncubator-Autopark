@@ -9,10 +9,8 @@ namespace DevIncubator.Autopark.Extension
 {
     internal static class AutoparkHelper
     {
-        public static T ToEnum<T>(this string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
-        }
+        public static T? ToEnum<T>(this string value) where T : struct => 
+            Enum.TryParse(value, out T valueResult) ? valueResult : default;
 
         public static decimal SumElement<T>(this IEnumerable<T> source, Func<T, decimal> selector)
         {
@@ -34,11 +32,12 @@ namespace DevIncubator.Autopark.Extension
 
             return sum;
         }
+
         public static void PrintEnumerable<T>(this IEnumerable<T> enumerable)
         {
-            foreach (var value in enumerable)
+            foreach (var obj in enumerable)
             {
-                Console.WriteLine(value);
+                Console.WriteLine(obj);
             }
         }
     }

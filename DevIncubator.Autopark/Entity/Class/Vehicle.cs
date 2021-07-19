@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark.Entity.Class
 {
     public class Vehicle : IComparable<Vehicle>
     {
+        private const decimal WeightCoefficient = 0.0013m;
+        private const decimal ShiftForTax = 5m;
+        private const decimal TaxCoefficient = 30m;
+
         public Vehicle()
         {
         }
@@ -53,7 +57,7 @@ namespace DevIncubator.Autopark.Entity.Class
 
         #endregion
 
-        public decimal GetCalcTaxPerMonth => (Weight * 0.0013m) + (VehicleType.TaxCoefficient * 30m) + 5;
+        public decimal GetCalcTaxPerMonth => (Weight * WeightCoefficient) + (VehicleType.TaxCoefficient * TaxCoefficient) + ShiftForTax;
 
         public decimal GetTotalIncome => ListRent.SumElement(rent => rent.RentCost);
 
@@ -68,6 +72,15 @@ namespace DevIncubator.Autopark.Entity.Class
 
             return vehicle.GetCalcTaxPerMonth.CompareTo(GetCalcTaxPerMonth);
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj) =>
+            obj is Vehicle vehicle && (VehicleType == vehicle.VehicleType && ModelName == vehicle.ModelName);
+
         public override string ToString() =>
                    $"{Id},{VehicleType.Id},{ModelName},{RegistrationNumber},{Weight}," +
                    $"{ReleaseYear},{Mileage},{ColorType},{VehicleEngine},{TankCapacity}";

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using DevIncubator.Autopark.Entity.Class;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enum;
 
 namespace DevIncubator.Autopark.InputService
 {
@@ -21,8 +18,11 @@ namespace DevIncubator.Autopark.InputService
             {
                 foreach (var obj in enumerable)
                 {
-                    var line = obj?.ToString();
-                    streamWriter.WriteLine(line);
+                    if (obj is not null)
+                    {
+                        var line = obj.ToString();
+                        streamWriter.WriteLine(line);
+                    }
                 }
             }
         }
