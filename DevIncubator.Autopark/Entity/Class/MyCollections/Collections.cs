@@ -195,7 +195,14 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
         {
             new CsvFileReader(rentsPath).ReadRents();
 
-            foreach (var listRentFields in listRentsFields)
+            var rents = new List<Rent>();
+            var listRentsFields = new CsvFileReader(rentsPath).ReadRents();
+            foreach (var rentFields in listRentsFields)
+            {
+                rents.Add(CreateRent(rentFields));
+            }
+
+            foreach (var vehicle in Vehicles)
             {
                 CreateRents(listRentFields);
             }
