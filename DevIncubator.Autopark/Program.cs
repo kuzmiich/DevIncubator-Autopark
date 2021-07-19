@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent;
+using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
 using DevIncubator.Autopark.Entity.Enum;
 using DevIncubator.Autopark.Extension;
 
@@ -61,28 +62,28 @@ namespace DevIncubator.Autopark
             vehicles.PrintEnumerable();
 
             var max = vehicles[0].Mileage;
-            Vehicle maxVehicle = null;
+            Vehicle maxMileageVehicle = null;
             var min = vehicles[0].Mileage;
-            Vehicle minVehicle = null;
+            Vehicle minMileageVehicle = null;
             foreach (var vehicle in vehicles)
             {
                 if (vehicle.Mileage > max)
                 {
                     max = vehicle.Mileage;
-                    maxVehicle = vehicle;
+                    maxMileageVehicle = vehicle;
                 }
                 if (vehicle.Mileage < min)
                 {
                     min = vehicle.Mileage;
-                    minVehicle = vehicle;
+                    minMileageVehicle = vehicle;
                 }
             }
 
             Console.WriteLine("Max mileage vehicle: ");
-            Console.WriteLine(maxVehicle);
+            Console.WriteLine(maxMileageVehicle);
 
             Console.WriteLine("Min mileage vehicle: ");
-            Console.WriteLine(minVehicle); 
+            Console.WriteLine(minMileageVehicle); 
             
             Console.WriteLine(string.Empty.PadLeft(220, '-'));
             //
@@ -99,6 +100,21 @@ namespace DevIncubator.Autopark
 
             Console.WriteLine(string.Empty.PadLeft(220, '-'));
             //
+            var maxKilometers = 0.0;
+            Vehicle maxKilometersVehicle = null;
+            foreach (var vehicle in vehicles)
+            {
+                var fuelTank = vehicle.TankCapacity;
+                var vehicleMaxKilometers = vehicle.VehicleEngine.GetMaxKilometers(fuelTank);
+                if (vehicleMaxKilometers > maxKilometers)
+                {
+                    maxKilometers = vehicleMaxKilometers;
+                    maxKilometersVehicle = vehicle;
+                }
+            }
+
+            Console.WriteLine("Vehicle that will travel the maximum distance on a tank/battery:");
+            Console.WriteLine(maxKilometersVehicle);
         }
     }
 }

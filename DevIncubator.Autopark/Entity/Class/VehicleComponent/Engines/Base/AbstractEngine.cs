@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Base
+namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines.Base
 {
-    public class Engine
+    public abstract class AbstractEngine
     {
-        public Engine(string typeName, decimal taxCoefficient)
+        protected AbstractEngine(string typeName, decimal taxCoefficient)
         {
             TypeName = typeName;
             TaxCoefficient = taxCoefficient;
@@ -16,9 +16,6 @@ namespace DevIncubator.Autopark.Entity.Class.VehicleComponent.Base
         public string TypeName { get; }
         public decimal TaxCoefficient { get; set; }
 
-        public override string ToString()
-        {
-            return $"Type name - {TypeName}, Tax Coefficient - {TaxCoefficient:0.00}";
-        }
+        public abstract double GetMaxKilometers(double fuelTank);
     }
 }
