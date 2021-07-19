@@ -1,13 +1,13 @@
 ﻿using DevIncubator.Autopark.Entity.Class;
 using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enum;
+using DevIncubator.Autopark.Entity.Enums;
 using DevIncubator.Autopark.Extension;
 using System;
 using System.Collections.Generic;
 
 namespace DevIncubator.Autopark.Service.AutoparkService
 {
-    class AutoparkInfoService : IService
+    internal class AutoparkInfoService : IService
     {
         private static readonly List<VehicleType> _vehicleTypes = new()
         {
@@ -16,7 +16,7 @@ namespace DevIncubator.Autopark.Service.AutoparkService
             new VehicleType(3, "Rink", 1.5m),
             new VehicleType(4, "Tractor", 1.2m)
         };
-        private readonly Vehicle[] vehicles =
+        private readonly Vehicle[] _vehicles =
         {
             new(1, _vehicleTypes[0], new GasolineEngine(2d,8.1d), "Volkswagen Crafter","5427 AX-7",2022,2015,376000,ColorType.Blue,75),
             new(2, _vehicleTypes[0], new GasolineEngine(2.18d,8.5d),"Volkswagen Crafter","6427 AX-7",2500,2014,227010,ColorType.White,75),
@@ -55,17 +55,17 @@ namespace DevIncubator.Autopark.Service.AutoparkService
             Console.WriteLine(string.Empty.PadLeft(120, '-'));
             // 2
 
-            vehicles.PrintEnumerable();
+            _vehicles.PrintEnumerable();
 
-            Array.Sort(vehicles);
+            Array.Sort(_vehicles);
 
-            vehicles.PrintEnumerable();
+            _vehicles.PrintEnumerable();
 
-            var max = vehicles[0].Mileage;
+            var max = _vehicles[0].Mileage;
             Vehicle maxMileageVehicle = null;
-            var min = vehicles[0].Mileage;
+            var min = _vehicles[0].Mileage;
             Vehicle minMileageVehicle = null;
-            foreach (var vehicle in vehicles)
+            foreach (var vehicle in _vehicles)
             {
                 if (vehicle.Mileage > max)
                 {
@@ -85,24 +85,24 @@ namespace DevIncubator.Autopark.Service.AutoparkService
             Console.WriteLine("Min mileage vehicle: ");
             Console.WriteLine(minMileageVehicle);
 
-            Console.WriteLine(string.Empty.PadLeft(120, '-'));
+            Console.WriteLine($"{string.Empty.PadLeft(120, '-')}\n");
             // 3
-            Console.WriteLine("Found equal vehicles:");
-            for (int i = 0; i < vehicles.Length - 1; i++)
+            Console.WriteLine("Found equal _vehicles:");
+            for (int i = 0; i < _vehicles.Length - 1; i++)
             {
                 var j = i + 1;
-                if (vehicles[i].Equals(vehicles[j]))
+                if (_vehicles[i].Equals(_vehicles[j]))
                 {
-                    Console.WriteLine($"{vehicles[i]}");
-                    Console.WriteLine($"{vehicles[j]}\n");
+                    Console.WriteLine($"{_vehicles[i]}");
+                    Console.WriteLine($"{_vehicles[j]}\n");
                 }
             }
 
-            Console.WriteLine(string.Empty.PadLeft(120, '-'));
+            Console.WriteLine($"{string.Empty.PadLeft(120, '-')}\n");
             // 4
             var maxKilometers = 0.0;
             Vehicle maxKilometersVehicle = null;
-            foreach (var vehicle in vehicles)
+            foreach (var vehicle in _vehicles)
             {
                 var fuelTank = vehicle.TankCapacity;
                 var vehicleMaxKilometers = vehicle.VehicleEngine.GetMaxKilometers(fuelTank);

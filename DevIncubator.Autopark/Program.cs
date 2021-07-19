@@ -1,12 +1,8 @@
 ﻿using DevIncubator.Autopark.Service;
 using DevIncubator.Autopark.Service.AutoparkService;
 using System;
-using System.Linq;
-using DevIncubator.Autopark.Entity.Class;
+using System.IO;
 using DevIncubator.Autopark.Entity.Class.MyCollections;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enum;
-using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark
 {
@@ -16,11 +12,15 @@ namespace DevIncubator.Autopark
 
         static void Main(string[] args)
         {
+            var collections = new Collections($"{DirectoryPath}types.csv",
+                $"{DirectoryPath}vehicles.csv",
+                $"{DirectoryPath}rents.csv");
+
             IService[] services =
             {
                 new AutoparkInfoService(),
-                new WashingService(),
-                new GarageService(),
+                new WashingService(collections),
+                new GarageService(collections),
             };
 
             try

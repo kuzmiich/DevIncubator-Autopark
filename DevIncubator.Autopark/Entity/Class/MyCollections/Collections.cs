@@ -64,10 +64,8 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 			Console.WriteLine($"Total: {SumTotalProfit,120:0.00}");
 		}
 
-		public void Sort(IComparer<Vehicle> comparator)
-		{
+		public void Sort(IComparer<Vehicle> comparator) =>
 			Vehicles.Sort(comparator);
-		}
 
 
         #region Load Vehicles

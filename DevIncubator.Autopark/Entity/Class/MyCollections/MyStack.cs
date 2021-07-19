@@ -6,18 +6,19 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 {
     public class MyStack<T> : IEnumerable<T>
     {
-        private readonly T[] _array;
+        private T[] _array;
+
         private const int DefaultCapacity = 10;
 
         public MyStack()
         {
-            _array = new T [DefaultCapacity];
+            _array = new T[DefaultCapacity];
         }
         
         public MyStack(int count)
         {
             if (count < 0)
-                throw new ArgumentOutOfRangeException(nameof(count), count, "Error, Index out of range");
+                throw new ArgumentOutOfRangeException(nameof(count), count, "Error, index out of range");
 
             _array = new T[count];
         }
@@ -33,37 +34,37 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
                 _array[i] = element;
                 i++;
             }
-
         }
 
-        public int Count => _array.Length;
+        public int Count { get; private set; }
 
         public void Clear()
         {
             Array.Clear(_array, 0, Count);
+            Count = 0;
         }
 
         public T Pop()
         {
-            var size = Count - 1;
-
-            if ((uint)size >= (uint)_array.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(size), "size can`t be >= length");
-            }
+            if (Count == 0)
+                throw new InvalidOperationException( "Error, array is empty");
             
-            return _array[size];
+            var item = _array[--Count];
+            _array[Count] = default;
+
+            return item;
         }
         
         public void Push(T item)
         {
-            var size = Count;
-            var array = _array;
-
-            if ((uint)size < (uint)array.Length)
+            if (Count == _array.Length)
             {
-                array[size] = item;
+                var newArray = new T[_array.Length + 1];
+                Array.Copy(_array, newArray, Count);
+                _array = newArray;
             }
+            _array[Count] = item;
+            Count += 1;
         }
 
         public IEnumerator<T> GetEnumerator()

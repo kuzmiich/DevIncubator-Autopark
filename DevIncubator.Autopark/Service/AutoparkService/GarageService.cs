@@ -8,14 +8,18 @@ using DevIncubator.Autopark.Entity.Class.MyCollections;
 
 namespace DevIncubator.Autopark.Service.AutoparkService
 {
-    class GarageService : IService
+    internal class GarageService : IService
     {
+        private readonly Collections _collections;
+
+        public GarageService(Collections collections)
+        {
+            _collections = collections;
+        }
+
         public void RunService()
         {
-            var collections = new Collections($"types.csv",
-                $"vehicles.csv",
-                $"rents.csv");
-            var vehicles = collections.Vehicles;
+            var vehicles = _collections.Vehicles;
             var stack = new MyStack<Vehicle>(vehicles.Count);
 
             Console.WriteLine("Stack:");

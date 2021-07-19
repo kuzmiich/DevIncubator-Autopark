@@ -8,14 +8,19 @@ using DevIncubator.Autopark.Entity.Class.MyCollections;
 
 namespace DevIncubator.Autopark.Service.AutoparkService
 {
-    class WashingService : IService
+    internal class WashingService : IService
     {
+        private readonly Collections _collections;
+
+        public WashingService(Collections collections)
+        {
+            _collections = collections;
+        }
+
         public void RunService()
         {
-            var collections = new Collections($"types.csv",
-                $"vehicles.csv",
-                $"rents.csv");
-            var vehicles = collections.Vehicles;
+            
+            var vehicles = _collections.Vehicles;
             var queue = new MyQueue<Vehicle>(vehicles.Count);
 
             Console.WriteLine("Queue:");
