@@ -76,10 +76,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
             return default;
         }
 
-        public void Clear()
-        {
-            Array.Clear(_queue, 0, _queue.Length);
-        }
+        public void Clear() => Array.Clear(_queue, 0, _queue.Length);
 
         public bool Contains(T element)
         {

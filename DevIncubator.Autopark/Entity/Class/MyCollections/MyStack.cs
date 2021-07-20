@@ -67,17 +67,8 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
             Count += 1;
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            foreach (var element in _array)
-            {
-                yield return element;
-            }
-        }
+        public IEnumerator<T> GetEnumerator() => (IEnumerator<T>) _array.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

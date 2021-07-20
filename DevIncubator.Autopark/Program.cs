@@ -34,7 +34,6 @@ namespace DevIncubator.Autopark
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                throw;
             }
         }
     }

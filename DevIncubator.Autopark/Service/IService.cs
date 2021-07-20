@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevIncubator.Autopark.Service
 {
-    internal interface IService
+    public interface IService
     {
         void RunService();
     }
