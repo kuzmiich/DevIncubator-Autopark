@@ -6,7 +6,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 {
     internal class MyQueue<T> : IEnumerable<T>
     {
-        private const int StandardSize = 16;
+        private const int DefaultCapacity = 10;
         private T[] _queue;
         private int _length;
         private int _endIndex;
@@ -14,7 +14,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
 
         public MyQueue()
         {
-            _queue = new T[StandardSize];
+            _queue = new T[DefaultCapacity];
         }
 
         public MyQueue(int length)
@@ -76,13 +76,7 @@ namespace DevIncubator.Autopark.Entity.Class.MyCollections
             return default;
         }
 
-        public void Clear()
-        {
-            if (_length <= 0)
-            {
-                Array.Clear(_queue, 0, _queue.Length);
-            }
-        }
+        public void Clear() => Array.Clear(_queue, 0, _queue.Length);
 
         public bool Contains(T element)
         {

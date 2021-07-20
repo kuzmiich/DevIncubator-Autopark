@@ -1,11 +1,8 @@
-﻿using System;
+﻿using DevIncubator.Autopark.Service;
+using DevIncubator.Autopark.Service.AutoparkService;
+using System;
 using System.IO;
-using System.Linq;
-using DevIncubator.Autopark.Entity.Class;
 using DevIncubator.Autopark.Entity.Class.MyCollections;
-using DevIncubator.Autopark.Entity.Class.VehicleComponent.Engines;
-using DevIncubator.Autopark.Entity.Enums;
-using DevIncubator.Autopark.Extension;
 
 namespace DevIncubator.Autopark
 {
@@ -18,24 +15,25 @@ namespace DevIncubator.Autopark
             var collections = new Collections($"{DirectoryPath}types.csv",
                 $"{DirectoryPath}vehicles.csv",
                 $"{DirectoryPath}rents.csv");
-            collections.Print();
 
-            var vehicles = collections.Vehicles;
-            var queue = new MyQueue<Vehicle>();
-
-            Console.WriteLine("Queue:");
-            for (int i = 0; i < vehicles.Count; i++)
+            IService[] services =
             {
-                queue.Enqueue(vehicles[i]);
-                Console.WriteLine($"Automobile {vehicles[i].ModelName} in queue");
+                new AutoparkInfoService(),
+                new WashingService(collections),
+                new GarageService(collections),
+            };
+
+            try
+            {
+                foreach (var service in services)
+                {
+                    service.RunService();
+                    Console.WriteLine(string.Empty.PadLeft(120, '-'));
+                }
             }
-
-            Console.WriteLine("Washed vehicles:");
-            var count = queue.Count;
-            for (int i = 0; i < count; i++)
+            catch (Exception exception)
             {
-                var vehicle = queue.Dequeue();
-                Console.WriteLine($"Automobile {vehicle.ModelName} washed");
+                Console.WriteLine(exception);
             }
         }
     }
