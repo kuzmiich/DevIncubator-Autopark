@@ -6,12 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\orders.csv" />
     <None Remove="Files\rents.csv" />
     <None Remove="Files\types.csv" />
     <None Remove="Files\vehicles.csv" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Files\orders.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\rents.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
