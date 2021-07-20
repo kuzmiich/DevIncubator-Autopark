@@ -17,13 +17,13 @@ namespace DevIncubator.Autopark
                 $"{DirectoryPath}vehicles.csv",
                 $"{DirectoryPath}rents.csv");
 
-            var listCsvElements = new CsvFileReader($"{DirectoryPath}orders.csv").ReadLineCsvElements();
+            var listOrders = new CsvFileReader($"{DirectoryPath}orders.csv").ReadLineCsvElements();
             IService[] services =
             {
                 new AutoparkInfoService(),
                 new WashingService(collections),
                 new GarageService(collections),
-                new RepairService(listCsvElements)
+                new RepairService(listOrders)
             };
 
             try

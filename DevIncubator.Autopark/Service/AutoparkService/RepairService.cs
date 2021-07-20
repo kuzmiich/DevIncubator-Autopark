@@ -9,11 +9,11 @@ namespace DevIncubator.Autopark.Service.AutoparkService
 {
     internal class RepairService : IService
     {
-        private readonly List<List<string>> _listCsvElements;
+        private readonly List<List<string>> _listOrders;
 
-        public RepairService(List<List<string>> listCsvElements)
+        public RepairService(List<List<string>> listOrders)
     {
-            _listCsvElements = listCsvElements;
+            _listOrders = listOrders;
         }
 
         private static void Print(Dictionary<string, int> items)
@@ -26,7 +26,7 @@ namespace DevIncubator.Autopark.Service.AutoparkService
         public void RunService()
         {
             var listDetails = new List<string>();
-            foreach (var details in _listCsvElements)
+            foreach (var details in _listOrders)
             {
                 foreach (var detail in details)
                 {
