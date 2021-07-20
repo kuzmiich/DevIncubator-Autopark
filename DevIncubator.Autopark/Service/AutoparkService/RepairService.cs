@@ -12,7 +12,7 @@ namespace DevIncubator.Autopark.Service.AutoparkService
         private readonly List<List<string>> _listCsvElements;
 
         public RepairService(List<List<string>> listCsvElements)
-        {
+    {
             _listCsvElements = listCsvElements;
         }
 
