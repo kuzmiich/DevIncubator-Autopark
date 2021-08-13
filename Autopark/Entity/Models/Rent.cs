@@ -6,7 +6,6 @@ namespace Autopark.Entity.Models
     {
         public Rent()
         {
-            
         }
 
         public Rent(DateTime date, decimal rentCost)
@@ -18,9 +17,6 @@ namespace Autopark.Entity.Models
         public DateTime Date { get; set; }
         public decimal RentCost { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Date},{RentCost}";
-        }
+        public override string ToString() => $"{Date},{RentCost}";
     }
 }

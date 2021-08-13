@@ -17,17 +17,15 @@ namespace Autopark.Engines
 
         public override double GetMaxKilometers(double batterySize)
         {
-            if (batterySize < 0.0)
+            if (batterySize < 0d)
             {
                 throw new ArgumentException("Battery size can`t be (< 0)");
             }
 
             return batterySize / ElectricityConsumption;
         }
-        public override string ToString()
-        {
-            return $"{TypeName}," +
-                   $"{ElectricityConsumption:0.00}";
-        }
+        public override string ToString() =>
+            $"{TypeName}," +
+            $"{ElectricityConsumption:0.00}";
     }
 }

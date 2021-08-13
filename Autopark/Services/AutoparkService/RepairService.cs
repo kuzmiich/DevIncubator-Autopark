@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Autopark.MyCollections;
-using Autopark.OutputService;
 
 namespace Autopark.Services.AutoparkService
 {
@@ -33,46 +29,16 @@ namespace Autopark.Services.AutoparkService
                     listDetails.Add(detail);
                 }
             }
-
-            var values = new HashSet<string>();
+            
+            var orders = new Dictionary<string, int>();
             foreach (var detail in listDetails)
             {
-                values.Add(detail);
-            }
-
-            var keys = new List<int>();
-            foreach (var value in values)
-            {
-                var count = 0;
-                foreach (var detail in listDetails)
+                if (!orders.TryAdd(detail, 1))
                 {
-                    if (value.Equals(detail))
-                    {
-                        count++;
-                    }
+                    orders[detail]++;
                 }
-                keys.Add(count);
-            }
-
-            var i = 0;
-            var orders = new Dictionary<string, int>();
-            foreach (var value in values)
-            {
-                orders.Add(value, keys[i]);
-                i++;
             }
             Print(orders);
         }
     }
 }
-
-// aces47 realization
-//
-/*var _orders = new Dictionary<string, int>();
-foreach (var detail in listDetails)
-{
-    if (!_orders.TryAdd(detail, 1))
-    {
-        _orders[detail]++;
-    }
-}*/

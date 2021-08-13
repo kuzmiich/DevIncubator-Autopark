@@ -1,16 +1,18 @@
 ﻿using Autopark.Extension;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Autopark.Entity.Enums;
 using Autopark.Engines;
 using Autopark.Engines.Base;
 using Autopark.Entity.Models;
+using Autopark.InputService;
 using Autopark.OutputService;
 
 namespace Autopark.MyCollections
 {
     internal class Collections
-	{
+    {
 		public Collections(string vehiclesTypesPath, string vehiclesPath, string rentsPath)
 		{
             ListVehicleTypes = LoadVehicleTypes($"{vehiclesTypesPath}");
@@ -129,7 +131,10 @@ namespace Autopark.MyCollections
         private List<Vehicle> LoadVehicles(string vehiclesPath)
         {
             var vehicles = new List<Vehicle>();
-            var listVehiclesFields = new CsvFileReader(vehiclesPath).ReadLineCsvElements();
+
+            IOutputService fileReader = new CsvFileReader(vehiclesPath);
+            var listVehiclesFields = fileReader.ReadLineCsvElements();
+
             foreach (var vehicleFields in listVehiclesFields)
             {
                 vehicles.Add(CreateVehicle(vehicleFields));
@@ -148,7 +153,8 @@ namespace Autopark.MyCollections
 
         private static List<VehicleType> LoadVehicleTypes(string vehiclesTypesPath)
         {
-            var listVehicleTypesFields = new CsvFileReader(vehiclesTypesPath).ReadLineCsvElements();
+            IOutputService fileReader = new CsvFileReader(vehiclesTypesPath);
+            var listVehicleTypesFields = fileReader.ReadLineCsvElements();
             var vehicleTypes = new List<VehicleType>();
 
             foreach (var vehicleTypeFields in listVehicleTypesFields)
@@ -175,7 +181,7 @@ namespace Autopark.MyCollections
             }
 
             var vehicleId = Convert.ToInt32(rentFields[0]);
-            var rentDate = Convert.ToDateTime(rentFields[1]);
+            var rentDate = Convert.ToDateTime(rentFields[1], new CultureInfo("ru"));
             var rentCost = Convert.ToDecimal(rentFields[2]);
 
             foreach (var vehicle in Vehicles)
@@ -192,7 +198,8 @@ namespace Autopark.MyCollections
 
         private void LoadRents(string rentsPath)
         {
-            var listRentsFields = new CsvFileReader(rentsPath).ReadLineCsvElements();
+            IOutputService fileReader = new CsvFileReader(rentsPath);
+            var listRentsFields = fileReader.ReadLineCsvElements();
             
             foreach (var listRentFields in listRentsFields)
             {

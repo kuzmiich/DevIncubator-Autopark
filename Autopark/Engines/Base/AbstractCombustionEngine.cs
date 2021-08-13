@@ -17,7 +17,7 @@ namespace Autopark.Engines.Base
 
         public override double GetMaxKilometers(double fuelTankCapacity)
         {
-            if (fuelTankCapacity < 0.0)
+            if (fuelTankCapacity < 0d)
             {
                 throw new ArgumentException("Battery size can`t be <0");
             }
